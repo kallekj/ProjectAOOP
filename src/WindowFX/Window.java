@@ -24,8 +24,7 @@ import java.io.File;
 public class Window extends Application {
 
     private Stage window;
-    private Double imageY_Offset;
-    private final int SCENE_WIDTH = 500, SCENE_HEIGHT = 500;
+    private final int SCENE_WIDTH = 700, SCENE_HEIGHT = 700;
     ImageView theImageViewer;
     private Scene mainScene;
 
@@ -39,6 +38,7 @@ public class Window extends Application {
 
         window = primaryStage;
         window.setTitle("Main Window");
+        window.setResizable(false);
         theImageViewer = new ImageView();
         window.setOnCloseRequest(e ->{
             e.consume();
@@ -57,15 +57,13 @@ public class Window extends Application {
         pane.getChildren().add(menuBar);
 
 
-
-        // File
+        // File, this section handles the file menu
         Menu file = new Menu("File");
-        MenuItem itemOpen = new MenuItem("Open");
-        MenuItem itemSave = new MenuItem("Save");
 
+        // This Section handles the open file operation
+        MenuItem itemOpen = new MenuItem("Open");
         FileChooser itemSelector = new FileChooser();
         itemSelector.setTitle("Select Image");
-
         itemOpen.setOnAction(event -> {
             File selectedItem = itemSelector.showOpenDialog( primaryStage);
             if(selectedItem != null){
@@ -73,29 +71,29 @@ public class Window extends Application {
             }
         });
 
-        MenuItem itemExit = new MenuItem("Exit", null);
+        // This section handles the save file operation
+        MenuItem itemSave = new MenuItem("Save");
 
+        // This section handles the exit operation
+        MenuItem itemExit = new MenuItem("Exit", null);
         itemExit.setOnAction(e -> Platform.exit());
-        theImageViewer.setPreserveRatio(false);
+        theImageViewer.setPreserveRatio(true);
         pane.getChildren().add(theImageViewer);
+
 
         file.getItems().addAll(itemOpen, itemSave, itemExit);
         menuBar.getMenus().add(file);
-
-
         mainRoot.getChildren().addAll(pane);
 
         window.setScene(mainScene);
         window.show();
-        imageY_Offset = menuBar.getHeight();
     }
   
     public void updateImage(File inputFile){
         String fileURL = inputFile.getAbsolutePath();
         Image newImage = new Image("file:"+fileURL);
-        theImageViewer.setFitWidth(window.getScene().getWidth());
-        theImageViewer.setY(imageY_Offset);
-        theImageViewer.setFitHeight(window.getScene().getHeight() - imageY_Offset);
+        theImageViewer.setFitWidth(mainScene.getWidth());
+        theImageViewer.setFitHeight(mainScene.getHeight());
         theImageViewer.setImage(newImage);
     }
 
