@@ -95,6 +95,7 @@ public class Window extends Application {
         theImageViewer.setFitWidth(mainScene.getWidth());
         theImageViewer.setFitHeight(mainScene.getHeight());
         theImageViewer.setImage(newImage);
+        window.getScene().getRoot().getChildrenUnmodifiable().get(1);
     }
 
 }
