@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class ImageWindow extends Window {
     ImageView theImageViewer;
+    private Image uneditedImage;
     private ArrayList<ImageFilter> filters;
     private ImageFilter currentFilter;
 
@@ -31,6 +32,7 @@ public class ImageWindow extends Window {
         String fileURL = inputFile.getAbsolutePath();
         Image newImage = new Image("file:"+fileURL);
         theImageViewer.setImage(newImage);
+        uneditedImage = newImage;
         setCurrentFilter(null);
 
         if(newImage.getWidth() > 1300){
@@ -73,9 +75,12 @@ public class ImageWindow extends Window {
     public void setCurrentFilter(ImageFilter filter) {
         currentFilter =filter;
         if(currentFilter != null) {
+            uneditedImage = theImageViewer.getImage();
             theImageViewer = currentFilter.manipulate(theImageViewer, 10);
         }
-        else{ theImageViewer.setEffect(null);}
+        else{
+            theImageViewer.setEffect(null);}
+
     }
 
 

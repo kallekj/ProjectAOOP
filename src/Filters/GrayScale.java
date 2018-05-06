@@ -15,7 +15,6 @@ public class GrayScale  extends ImageFilter {
     @Override
     public ImageView manipulate(ImageView input, int intensity) {
         ImageView returnImageView = input;
-
         ColorAdjust grayScale = new ColorAdjust();
         grayScale.setSaturation(-1);
         returnImageView.setEffect(grayScale);
