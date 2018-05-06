@@ -105,6 +105,7 @@ public class Window extends Application {
         String fileURL = inputFile.getAbsolutePath();
         Image newImage = new Image("file:"+fileURL);
         theImageViewer.setImage(newImage);
+
         if(newImage.getWidth() > 1300){
             // Calculate the scale change to set correct height value in order to preserve the aspect ratio
             double imgWidth = newImage.getWidth();
@@ -132,6 +133,7 @@ public class Window extends Application {
 //        theImageViewer.fitWidthProperty().bind(mainScene.widthProperty());
 //        theImageViewer.fitHeightProperty().bind(mainScene.heightProperty());
 //        theImageViewer.setPreserveRatio(true);
+
     }
 
 }
