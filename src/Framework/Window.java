@@ -26,10 +26,8 @@ public abstract class  Window {
     private File TESTIMAGE;
 
 
-
-
     public abstract ImageView  createCenterComponent();
-    public abstract void updateImageView(File inputFile, Double sceneWidth, Double sceneHeigth);
+    public abstract void updateImageView(File inputFile, Scene theScene, Stage theStage);
     public abstract  void setCurrentFilter(ImageFilter filter);
 
 
@@ -69,7 +67,7 @@ public abstract class  Window {
             File selectedItem = itemSelector.showOpenDialog( primaryStage);
             if(selectedItem != null){
                 TESTIMAGE = selectedItem;
-                updateImageView(selectedItem, mainScene.getWidth(), mainScene.getWidth());
+                updateImageView(selectedItem, mainScene, window);
             }
         });
 
