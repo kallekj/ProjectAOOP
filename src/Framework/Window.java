@@ -61,7 +61,7 @@ public abstract class  Window {
         MenuItem itemOpen = new MenuItem("Open");
         FileChooser itemSelector = new FileChooser();
 
-
+        // EDIT THIS TO ONLY SELECT VALID IMAGES
         itemSelector.setTitle("Select Image");
         itemOpen.setOnAction(event -> {
             File selectedItem = itemSelector.showOpenDialog( primaryStage);
