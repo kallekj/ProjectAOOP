@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -28,7 +29,8 @@ public abstract class  Window {
 
     public abstract ImageView  createCenterComponent();
     public abstract void updateImageView(File inputFile, Scene theScene, Stage theStage);
-    public abstract  void setCurrentFilter(ImageFilter filter);
+    public abstract void setCurrentFilter(ImageFilter filter);
+    public abstract void removeFilter();
 
 
 
@@ -41,7 +43,6 @@ public abstract class  Window {
             e.consume();
             window.close();
         });
-
         // Main Scene
         Group mainRoot = new Group();
         mainScene = new Scene(mainRoot, SCENE_WIDTH, SCENE_HEIGHT);
@@ -95,7 +96,7 @@ public abstract class  Window {
         MenuItem black_Circle = new MenuItem("Black Circle");
         black_Circle.setOnAction(event -> setCurrentFilter(new Black_Circle()));
         MenuItem noFilter = new MenuItem("No Filter");
-        noFilter.setOnAction(event ->  setCurrentFilter(null));
+        noFilter.setOnAction(event ->  removeFilter());
 
         patterns.getItems().addAll(vertical_Stripes,chess,black_Circle);
         filter.getItems().addAll(swirl,grayScale,flipX,red_Filter,patterns,noFilter);
