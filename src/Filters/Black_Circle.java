@@ -25,7 +25,7 @@ public class Black_Circle extends ImageFilter {
         java.awt.image.BufferedImage bufferedImage = SwingFXUtils.fromFXImage(input.getImage(),null);
         Graphics2D graphics2D = bufferedImage.createGraphics();
         graphics2D.setPaint(new java.awt.Color(0,0,0));
-        graphics2D.fillOval (0,-1,(int)input.getFitWidth(),(int)input.getFitHeight());
+        graphics2D.fillOval (0,0,(int)input.getImage().getWidth(),(int)input.getImage().getHeight());
         ImageView returnImageView = input;
         Image newImage = SwingFXUtils.toFXImage(bufferedImage,null);
         returnImageView.setImage(newImage);

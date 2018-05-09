@@ -27,22 +27,25 @@ public class Swirl extends ImageFilter{
         theSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                intensity = newValue.doubleValue() * 0.1;
+                intensity = newValue.doubleValue() ;
                 BufferedImage bufferedImage = SwingFXUtils.fromFXImage(input.getImage(),null);
-                BufferedImage tempBufferedImage = new BufferedImage((int)input.getFitWidth(),(int)input.getFitHeight(),BufferedImage.TYPE_INT_ARGB);
-                for(int x = 0; x<input.getFitWidth();x++){
-                    for(int y = 0; y< input.getFitHeight(); y++){
-                        double deltaX = x - x0 ;
-                        double deltaY = y - y0 ;
-                        double radius = Math.sqrt(deltaX* deltaX + deltaY*deltaY)  ;
-                        double angle = Math.PI/256 *radius *intensity;
-                        int tempX = (int)(-deltaX* Math.cos(angle) + deltaY* Math.sin(angle) + x0);
-                        int tempY = (int) (deltaX *Math.sin(angle) + deltaY*Math.cos(angle) + y0);
-                        if(tempX >= 0 && tempX < input.getFitWidth() && tempY>= 0 && tempY < input.getFitHeight()){
-                            tempBufferedImage.setRGB(x,y,bufferedImage.getRGB(tempX,tempY));
+                BufferedImage tempBufferedImage = new BufferedImage((int)bufferedImage.getWidth(),(int)bufferedImage.getHeight(),BufferedImage.TYPE_INT_ARGB);
+                for(int x = 0; x<bufferedImage.getWidth();x++) {
+                    for (int y = 0; y < bufferedImage.getHeight(); y++) {
+                        double deltaX = x - x0;
+                        double deltaY = y - y0;
+                        double radius = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                        double angle = Math.PI / 256 * radius * intensity;
+                        int tempX = (int) (-deltaX * Math.cos(angle) + deltaY * Math.sin(angle) + x0);
+                        int tempY = (int) (deltaX * Math.sin(angle) + deltaY * Math.cos(angle) + y0);
+                        if (tempX >= 0 && tempX < bufferedImage.getWidth() && tempY >= 0 && tempY < bufferedImage.getHeight()) {
+                            tempBufferedImage.setRGB(x, y, bufferedImage.getRGB(tempX, tempY));
+
                         }
+
                     }
                 }
+
 
                 Image newImage = SwingFXUtils.toFXImage(tempBufferedImage,null);
                 resultView.setImage(newImage);
@@ -61,7 +64,7 @@ public class Swirl extends ImageFilter{
         return input;
     }
     public void initSlider(){
-        theSlider = new Slider(0,100,1);
+        theSlider = new Slider(0,10,0);
         theSlider.setShowTickLabels(true);
         theSlider.setShowTickMarks(true);
         theSlider.setMajorTickUnit(10);
