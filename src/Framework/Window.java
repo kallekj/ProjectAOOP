@@ -9,7 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -22,13 +24,15 @@ public abstract class  Window {
     private final int SCENE_WIDTH = 700, SCENE_HEIGHT = 700;
     private Scene mainScene;
     private MenuBar theMenuBar;
-    private ImageFilter currentFilter;
     private File TESTIMAGE;
+    private ImageView theImageViewer;
+    private Group mainRoot;
 
 
     public abstract ImageView  createCenterComponent();
-    public abstract void updateImageView(File inputFile, Scene theScene, Stage theStage);
-    public abstract  void setCurrentFilter(ImageFilter filter);
+    public abstract ImageView updateImageView(File inputFile);
+    public abstract void setCurrentFilter(ImageFilter filter);
+    public abstract void removeFilter();
 
 
 
@@ -36,14 +40,13 @@ public abstract class  Window {
         window = primaryStage;
         window.setTitle("Main Window");
         window.setResizable(false);
-        ImageView theImageViewer = createCenterComponent();
+        theImageViewer = createCenterComponent();
         window.setOnCloseRequest(e ->{
             e.consume();
             window.close();
         });
-
         // Main Scene
-        Group mainRoot = new Group();
+        mainRoot = new Group();
         mainScene = new Scene(mainRoot, SCENE_WIDTH, SCENE_HEIGHT);
         VBox pane = new VBox();
 
@@ -52,6 +55,7 @@ public abstract class  Window {
         MenuBar menuBar = new MenuBar();
         menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
         pane.getChildren().add(menuBar);
+
 
 
         // File, this section handles the file menu
@@ -67,7 +71,31 @@ public abstract class  Window {
             File selectedItem = itemSelector.showOpenDialog( primaryStage);
             if(selectedItem != null){
                 TESTIMAGE = selectedItem;
-                updateImageView(selectedItem, mainScene, window);
+               ImageView newImageView =  updateImageView(selectedItem);
+                Group newRoot = new Group();
+                Scene newScene;
+                if(newImageView.getImage().getWidth() > 1300){
+                    // Calculate the scale change to set correct height value in order to preserve the aspect ratio
+                    double imgWidth = newImageView.getImage().getWidth();
+                    double imgScale = 1300/imgWidth;
+                    double newImgHeight = newImageView.getImage().getHeight() * imgScale;
+                     newScene = new Scene( newRoot,newImageView.getImage().getWidth(), newImgHeight + menuBar.getHeight());
+
+                }else{
+                     newScene = new Scene( newRoot,newImageView.getImage().getWidth(), newImageView.getImage().getHeight() + menuBar.getHeight());
+                }
+
+
+                newRoot.getChildren().addAll(pane);
+                newImageView.setPreserveRatio(true);
+                newImageView.fitWidthProperty().bind(newScene.widthProperty());
+                newImageView.fitHeightProperty().bind(newScene.heightProperty());
+                theImageViewer = newImageView;
+                mainScene =newScene;
+                mainRoot = newRoot;
+                window.setScene(mainScene);
+                window.sizeToScene();
+
             }
         });
 
@@ -95,7 +123,7 @@ public abstract class  Window {
         MenuItem black_Circle = new MenuItem("Black Circle");
         black_Circle.setOnAction(event -> setCurrentFilter(new Black_Circle()));
         MenuItem noFilter = new MenuItem("No Filter");
-        noFilter.setOnAction(event ->  setCurrentFilter(null));
+        noFilter.setOnAction(event ->  removeFilter());
 
         patterns.getItems().addAll(vertical_Stripes,chess,black_Circle);
         filter.getItems().addAll(swirl,grayScale,flipX,red_Filter,patterns,noFilter);
@@ -113,4 +141,8 @@ public abstract class  Window {
         window.show();
 
     }
+    public ImageView getImageView(){
+        return  theImageViewer;
+    }
+
 }

@@ -12,8 +12,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 public class RedFilter extends ImageFilter {
+
+
     @Override
-    public ImageView manipulate(ImageView input, int intensity) {
+    public ImageView activate(ImageView input) {
         ImageView returnImageView = input;
         Blend noBlue = new Blend(BlendMode.BLUE,returnImageView.getEffect(), new ColorInput(0,0,returnImageView.getImage().getWidth(),  returnImageView.getImage().getHeight(), Color.rgb( 0 , 0,0 )));
         returnImageView.setEffect(noBlue);
@@ -23,8 +25,10 @@ public class RedFilter extends ImageFilter {
     }
 
     @Override
-    public ImageView manipulate() {
-
-        return null;
+    public ImageView deactivate(ImageView input) {
+        ImageView returnView = input;
+        returnView.setEffect(null);
+        input.setEffect(null);
+        return returnView;
     }
 }
