@@ -79,12 +79,11 @@ public abstract class  Window {
                     double imgWidth = newImageView.getImage().getWidth();
                     double imgScale = 1300/imgWidth;
                     double newImgHeight = newImageView.getImage().getHeight() * imgScale;
-                     newScene = new Scene( newRoot,newImageView.getImage().getWidth(), newImgHeight + menuBar.getHeight());
+                     newScene = new Scene( newRoot,1300, newImgHeight + menuBar.getHeight());
 
                 }else{
                      newScene = new Scene( newRoot,newImageView.getImage().getWidth(), newImageView.getImage().getHeight() + menuBar.getHeight());
                 }
-
 
                 newRoot.getChildren().addAll(pane);
                 newImageView.setPreserveRatio(true);
