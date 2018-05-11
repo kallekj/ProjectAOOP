@@ -73,6 +73,7 @@ public class Window extends Application {
             File selectedItem = itemSelector.showOpenDialog( window);
             if(selectedItem != null){
                 updateImage(selectedItem);
+                window.sizeToScene();
             }
         });
 

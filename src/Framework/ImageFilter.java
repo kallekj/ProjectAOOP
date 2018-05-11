@@ -4,6 +4,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public abstract class ImageFilter {
-    public abstract ImageView manipulate(ImageView input, int intensity);
-    public abstract ImageView manipulate();
+
+    public abstract ImageView activate(ImageView input);
+    public abstract ImageView deactivate(ImageView input);
+
 }

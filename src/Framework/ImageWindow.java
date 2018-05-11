@@ -1,20 +1,13 @@
 package Framework;
-import Filters.*;
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
 import java.io.File;
-import java.util.ArrayList;
+
 
 public class ImageWindow extends Window {
-    ImageView theImageViewer;
-    private ArrayList<ImageFilter> filters;
+    private ImageView theImageViewer;
     private ImageFilter currentFilter;
 
     public ImageWindow (Stage primaryStage){
@@ -26,14 +19,16 @@ public class ImageWindow extends Window {
     }
 
     @Override
-    public void updateImageView(File inputFile, Scene theScene, Stage theStage){
-
+    public ImageView updateImageView(File inputFile){
         String fileURL = inputFile.getAbsolutePath();
         Image newImage = new Image("file:"+fileURL);
         theImageViewer.setImage(newImage);
-        setCurrentFilter(null);
+        theImageViewer.setEffect(null);
 
-        if(newImage.getWidth() > 1300){
+        if(currentFilter != null){
+            removeFilter();
+        }
+     /*   if(newImage.getWidth() > 1300){
             // Calculate the scale change to set correct height value in order to preserve the aspect ratio
             double imgWidth = newImage.getWidth();
             double imgScale = 1300/imgWidth;
@@ -41,41 +36,40 @@ public class ImageWindow extends Window {
 
             theStage.setWidth(1300);
             theStage.setHeight(newImgHeight);
-            theImageViewer.fitWidthProperty().bind(theScene.widthProperty());
+
 
         }else{
-            theStage.setWidth(newImage.getWidth());
-            theStage.setHeight(newImage.getHeight());
-            theImageViewer.fitWidthProperty().bind(theScene.widthProperty());
+           theStage.setWidth(newImage.getWidth());
+           theStage.setHeight(newImage.getHeight());
+
         }
+        theImageViewer.fitWidthProperty().bind(theStage.widthProperty());
+        theImageViewer.fitHeightProperty().bind(theStage.widthProperty());
+
+
+
 
         theImageViewer.setPreserveRatio(true);
+*/
 
+     return theImageViewer;
     }
 
-//    @Override
-//    public void updateImageView(File inputFile, Double sceneWidth, Double sceneHeight) {
-//        String fileURL = inputFile.getAbsolutePath();
-//        Image newImage = new Image("file:"+fileURL);
-//        theImageViewer.setFitWidth(sceneWidth);
-//        theImageViewer.setFitHeight(sceneHeight);
-//        theImageViewer.setImage(newImage);
-//        if(currentFilter != null){
-//            theImageViewer = currentFilter.manipulate(theImageViewer,10);
-//        }
-//
-//        theImageViewer.setPreserveRatio(true);
-//
-//
-//    }
 
     @Override
     public void setCurrentFilter(ImageFilter filter) {
-        currentFilter =filter;
-        if(currentFilter != null) {
-            theImageViewer = currentFilter.manipulate(theImageViewer, 10);
+        theImageViewer = super.getImageView();
+        if(filter != null) {
+            if(currentFilter!= null){
+               removeFilter();
+            }
+            currentFilter = filter;
+           theImageViewer= currentFilter.activate(theImageViewer);
         }
-        else{ theImageViewer.setEffect(null);}
+    }
+    public void removeFilter(){
+        theImageViewer = currentFilter.deactivate(theImageViewer);
+        currentFilter = null;
     }
 
 
