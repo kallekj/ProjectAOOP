@@ -1,1 +1,7 @@
-Make Windo able to handle 4k pictures (big pictures)
+ATT GÖRA LISTA FÖR PROJEKTET
+
+1. Om effekten Verrtical Stripes är aktive på en bild och man öppnar en ny bild, då kommer tar den bara bort filtret utan att byta bild.
+2. Fixa swirl så den fungerar bättre.
+3. Om en bild som är större än 1300px bred laddas in så kommer inte filtret chess och vertical stripes att appliceras på hela bilden.
+4. Ändra så man bara kan öppna jpg, jpeg, png och gif.
+5. Fixa så vi kan spara en bild.

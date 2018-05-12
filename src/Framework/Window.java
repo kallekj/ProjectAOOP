@@ -71,7 +71,7 @@ public abstract class  Window {
             File selectedItem = itemSelector.showOpenDialog( primaryStage);
             if(selectedItem != null){
                 TESTIMAGE = selectedItem;
-               ImageView newImageView =  updateImageView(selectedItem);
+                ImageView newImageView =  updateImageView(selectedItem);
                 Group newRoot = new Group();
                 Scene newScene;
                 if(newImageView.getImage().getWidth() > 1300){
@@ -85,7 +85,7 @@ public abstract class  Window {
                      newScene = new Scene( newRoot,newImageView.getImage().getWidth(), newImageView.getImage().getHeight() + menuBar.getHeight());
                 }
 
-                newRoot.getChildren().addAll(pane);
+                newRoot.getChildren().add(pane);
                 newImageView.setPreserveRatio(true);
                 newImageView.fitWidthProperty().bind(newScene.widthProperty());
                 newImageView.fitHeightProperty().bind(newScene.heightProperty());
@@ -105,31 +105,56 @@ public abstract class  Window {
         MenuItem itemExit = new MenuItem("Exit", null);
         itemExit.setOnAction(e -> Platform.exit());
 
+        // This section handles filters
         Menu filter = new Menu ("Filter");
+
+        // Swirl
         MenuItem swirl = new MenuItem("Swirl");
         swirl.setOnAction(event -> setCurrentFilter(new Swirl()));
+
+        // GrayScale
         MenuItem grayScale = new MenuItem("Grayscale");
         grayScale.setOnAction(event -> setCurrentFilter(new GrayScale()) );
+
+        // FlipX
         MenuItem flipX = new MenuItem("Flip X");
         flipX.setOnAction(event -> setCurrentFilter(new FlipX()));
+
+        // Red Filter
         MenuItem red_Filter = new MenuItem("Red Filter");
         red_Filter.setOnAction(event ->  setCurrentFilter(new RedFilter()));
+
+        // Brightness filter
+        MenuItem brightness = new MenuItem("Brightness");
+        brightness.setOnAction(event -> setCurrentFilter(new BrightnessFilter()));
+
+        // Sub Menu with patterns
         Menu patterns = new Menu("Patterns");
+
+        // Vertical stripes in Sub Menu
         MenuItem vertical_Stripes = new MenuItem("Vertical Stripes");
         vertical_Stripes.setOnAction(event -> setCurrentFilter(new Vertical_Stripes()));
+
+        // Chess in Sub Menu
         MenuItem chess = new MenuItem("Chess");
         chess.setOnAction(event -> setCurrentFilter(new Chess()));
+
+        // Black Circle in Sub Menu
         MenuItem black_Circle = new MenuItem("Black Circle");
         black_Circle.setOnAction(event -> setCurrentFilter(new Black_Circle()));
+
+        // Restore image to original
         MenuItem noFilter = new MenuItem("No Filter");
         noFilter.setOnAction(event ->  removeFilter());
 
+        // Add all Sub Menu patterns to the menu
         patterns.getItems().addAll(vertical_Stripes,chess,black_Circle);
-        filter.getItems().addAll(swirl,grayScale,flipX,red_Filter,patterns,noFilter);
+
+        // Add all filters and patterns to the filter menu
+        filter.getItems().addAll(swirl,grayScale,flipX,red_Filter, brightness,patterns,noFilter);
 
         theImageViewer.setPreserveRatio(true);
         pane.getChildren().add(theImageViewer);
-
 
         file.getItems().addAll(itemOpen, itemSave, itemExit);
         menuBar.getMenus().add(file);
