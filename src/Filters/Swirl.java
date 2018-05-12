@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 
 public class Swirl extends ImageFilter{
     private Image originalImage;
+    private Image returnImage;
     private String filterName = "Swirl";
     private Double intensity;
     private Slider theSlider;
@@ -20,6 +21,7 @@ public class Swirl extends ImageFilter{
     @Override
     public ImageView activate(ImageView input) {
         originalImage = input.getImage();
+        returnImage = input.getImage();
         ImageView resultView = input;
         initSlider();
         double x0 = 0.5 * ( input.getFitWidth() -1) ;
@@ -28,7 +30,7 @@ public class Swirl extends ImageFilter{
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 intensity = newValue.doubleValue() ;
-                BufferedImage bufferedImage = SwingFXUtils.fromFXImage(input.getImage(),null);
+                BufferedImage bufferedImage = SwingFXUtils.fromFXImage(returnImage,null);
                 BufferedImage tempBufferedImage = new BufferedImage((int)bufferedImage.getWidth(),(int)bufferedImage.getHeight(),BufferedImage.TYPE_INT_ARGB);
                 for(int x = 0; x<bufferedImage.getWidth();x++) {
                     for (int y = 0; y < bufferedImage.getHeight(); y++) {
@@ -63,7 +65,7 @@ public class Swirl extends ImageFilter{
         input.setImage(originalImage);
         return input;
     }
-    public void initSlider(){
+    private void initSlider(){
         theSlider = new Slider(0,10,0);
         theSlider.setShowTickLabels(true);
         theSlider.setShowTickMarks(true);

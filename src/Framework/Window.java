@@ -124,6 +124,10 @@ public abstract class  Window {
         MenuItem red_Filter = new MenuItem("Red Filter");
         red_Filter.setOnAction(event ->  setCurrentFilter(new RedFilter()));
 
+        // Brightness filter
+        MenuItem brightness = new MenuItem("Brightness");
+        brightness.setOnAction(event -> setCurrentFilter(new BrightnessFilter()));
+
         // Sub Menu with patterns
         Menu patterns = new Menu("Patterns");
 
@@ -147,7 +151,7 @@ public abstract class  Window {
         patterns.getItems().addAll(vertical_Stripes,chess,black_Circle);
 
         // Add all filters and patterns to the filter menu
-        filter.getItems().addAll(swirl,grayScale,flipX,red_Filter,patterns,noFilter);
+        filter.getItems().addAll(swirl,grayScale,flipX,red_Filter, brightness,patterns,noFilter);
 
         theImageViewer.setPreserveRatio(true);
         pane.getChildren().add(theImageViewer);
