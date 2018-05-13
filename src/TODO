@@ -8,3 +8,4 @@ ATT GÖRA LISTA FÖR PROJEKTET
 6. Klickar man på "No filter" två gånger i rad får vi "Exception in thread "JavaFX Application Thread" java.lang.NullPointerException
                                                       	at Framework.ImageWindow.removeFilter(ImageWindow.java:46)
                                                       	at Framework.Window.lambda$new$14(Window.java:176)"
+7. Lägg till korrekt text i help och about
