@@ -24,8 +24,8 @@ public class Swirl extends ImageFilter{
         returnImage = input.getImage();
         ImageView resultView = input;
         initSlider();
-        double x0 = 0.5 * ( input.getFitWidth() -1) ;
-        double y0 = 0.5 *(input.getFitHeight() -1);
+        double x0 = 0.5 * ( input.getImage().getWidth() -1) ;
+        double y0 = 0.5 *(input.getImage().getHeight() -1);
         theSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {

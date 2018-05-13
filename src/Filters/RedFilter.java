@@ -1,13 +1,9 @@
 package Filters;
 
 import Framework.ImageFilter;
-import javafx.beans.binding.Bindings;
-import javafx.scene.CacheHint;
 import javafx.scene.effect.Blend;
 import javafx.scene.effect.BlendMode;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.ColorInput;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 

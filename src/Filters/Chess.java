@@ -18,7 +18,7 @@ public class Chess extends ImageFilter {
         for(int x = 0 ; x<8; x++){
             int offset = x%2;
             for(int y = 0; y<8;y++){
-                graphics2D.fillRect ((int) (x* (input.getFitWidth()/8)), (int) (y* (input.getFitHeight()/4) + ( offset *(input.getFitHeight()/8) )),(int)(input.getFitWidth()/8),(int)(input.getFitHeight()/8));
+                graphics2D.fillRect ((int) (x* (input.getImage().getWidth()/8)), (int) (y* (input.getImage().getHeight()/4) + ( offset *(input.getImage().getHeight()/8) )),(int)(input.getImage().getWidth()/8),(int)(input.getImage().getHeight()/8));
             }
         }
 
