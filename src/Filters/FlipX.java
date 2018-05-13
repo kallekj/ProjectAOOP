@@ -2,15 +2,8 @@ package Filters;
 
 import Framework.ImageFilter;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.effect.Blend;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
-
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class FlipX extends ImageFilter {

@@ -3,21 +3,24 @@ package Framework;
 
 import Filters.*;
 import javafx.application.Platform;
-import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import javax.imageio.ImageIO;
+import java.awt.image.RenderedImage;
 import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class  Window {
     private Stage window;
@@ -100,6 +103,24 @@ public abstract class  Window {
 
         // This section handles the save file operation
         MenuItem itemSave = new MenuItem("Save");
+        itemSave.setOnAction(event -> {
+            Image FXImage = theImageViewer.snapshot(new SnapshotParameters(), null);
+            RenderedImage saveImage = SwingFXUtils.fromFXImage(FXImage,null);
+            FileChooser fileSaver = new FileChooser();
+            fileSaver.setTitle("Save Edited Image");
+
+            File newFile = fileSaver.showSaveDialog(primaryStage);
+            if(newFile != null){
+                try{ ImageIO.write(saveImage,"png",new File( newFile.toString() + ".png"));
+
+                }
+                catch(IOException ex){
+                    Logger.getLogger(FileChooser.class.getName()).log(Level.SEVERE,null,ex);
+
+                }
+            }
+
+        });
 
         // This section handles the exit operation
         MenuItem itemExit = new MenuItem("Exit", null);
@@ -124,9 +145,16 @@ public abstract class  Window {
         MenuItem red_Filter = new MenuItem("Red Filter");
         red_Filter.setOnAction(event ->  setCurrentFilter(new RedFilter()));
 
+        //Inverted Filter
+        MenuItem invertFilter = new MenuItem("Invert Colors");
+        invertFilter.setOnAction(event -> setCurrentFilter(new InvertFilter()));
+
         // Brightness filter
         MenuItem brightness = new MenuItem("Brightness");
         brightness.setOnAction(event -> setCurrentFilter(new BrightnessFilter()));
+
+        MenuItem paint = new MenuItem("Paint");
+        paint.setOnAction(event -> setCurrentFilter(new Paint()));
 
         // Sub Menu with patterns
         Menu patterns = new Menu("Patterns");
@@ -151,7 +179,7 @@ public abstract class  Window {
         patterns.getItems().addAll(vertical_Stripes,chess,black_Circle);
 
         // Add all filters and patterns to the filter menu
-        filter.getItems().addAll(swirl,grayScale,flipX,red_Filter, brightness,patterns,noFilter);
+        filter.getItems().addAll(swirl,grayScale,flipX,red_Filter, paint,brightness,invertFilter,patterns,noFilter);
 
         theImageViewer.setPreserveRatio(true);
         pane.getChildren().add(theImageViewer);

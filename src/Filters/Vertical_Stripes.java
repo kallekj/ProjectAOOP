@@ -17,7 +17,7 @@ public class Vertical_Stripes extends ImageFilter {
         graphics2D.setPaint(new java.awt.Color(0,0,0));
         for(int x = 0 ; x<10; x++){
 
-            graphics2D.fillRect ((int) (x* (input.getFitWidth()/10)), (int) 0,(int)(input.getFitWidth()/20),(int)(input.getFitHeight()));
+            graphics2D.fillRect ((int) (x* (input.getImage().getWidth()/10)), (int) 0,(int)(input.getImage().getWidth()/20),(int)(input.getImage().getHeight()));
 
         }
 

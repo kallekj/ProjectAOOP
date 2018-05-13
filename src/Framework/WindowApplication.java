@@ -4,7 +4,6 @@ package Framework;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.awt.*;
 
 public class WindowApplication extends Application {
     public static void main(String args[]){

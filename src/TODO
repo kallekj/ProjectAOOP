@@ -1,6 +1,6 @@
 ATT GÖRA LISTA FÖR PROJEKTET
 
-1. Om effekten Vertical Stripes är aktiv på en bild och om man öppnar en ny bild, då kommer den bara att ta bort filtret utan att byta bild.
-2. Om en bild som är större än 1300px bred laddas in så kommer inte filtret chess och vertical stripes att appliceras på hela bilden.
+1. Om effekten Vertical Stripes är aktiv på en bild och om man öppnar en ny bild, då kommer den bara att ta bort filtret utan att byta bild. KLART
+2. Om en bild som är större än 1300px bred laddas in så kommer inte filtret chess och vertical stripes att appliceras på hela bilden.KLART
 3. Ändra så man bara kan öppna jpg, jpeg, png och gif.
-4. Fixa så vi kan spara en bild.
+4. Fixa så vi kan spara en bild. KLART
