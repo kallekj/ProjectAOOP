@@ -6,12 +6,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Slider;
-import javafx.scene.effect.Blend;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
+
 
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
@@ -33,9 +30,9 @@ public class BrightnessFilter extends ImageFilter {
         theSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                    intensity = newValue.floatValue();
+                    intensity = newValue.floatValue() *(float) 0.1;
                     BufferedImage bufferedImage = SwingFXUtils.fromFXImage(returnImage, null);
-                    RescaleOp operation = new RescaleOp(intensity, 0, null);
+                    RescaleOp operation = new RescaleOp(intensity +1 , 0, null);
                     bufferedImage = operation.filter(bufferedImage, bufferedImage);
 
                     Image newImage = SwingFXUtils.toFXImage(bufferedImage, null);
