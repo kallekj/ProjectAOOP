@@ -22,6 +22,7 @@ public class Paint extends ImageFilter {
     int  red= 0;
     int blue = 0;
     int green = 0;
+    double imgScale = 0;
     java.awt.Color currentColor = Color.black;
     private Slider redSlider;
     private Slider blueSlider;
@@ -34,6 +35,7 @@ public class Paint extends ImageFilter {
         final double maxX = input.getImage().getWidth();
         final double maxY = input.getImage().getHeight();
         BufferedImage image = SwingFXUtils.fromFXImage(input.getImage(),null);
+
         redSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -58,6 +60,9 @@ public class Paint extends ImageFilter {
         returnImageView.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                System.out.println("Event.get(), X = " + event.getX() + ", Y = " + event.getY());
+                System.out.println("Event.getScene(), X = " + event.getSceneX() + ", Y = " + event.getSceneY());
+                System.out.println("Event.getScreen(), X = " + event.getScreenX() + ", Y = " + event.getScreenY());
                 initX = event.getX();
                 initY = event.getY();
                 event.consume();
@@ -66,9 +71,12 @@ public class Paint extends ImageFilter {
         returnImageView.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                double x = event.getSceneX();
+                double x = event.getX();
                 double y = event.getY();
-                if(event.getSceneX() < maxX && event.getSceneY() < maxY){
+                System.out.println("=================================================================");
+                System.out.println("X = " + x + ", Y = " + y);
+
+                if(x < maxX && y < maxY){
                     Graphics2D graphics = (Graphics2D) image.getGraphics();
                     graphics.setPaint(currentColor);
                     graphics.fillOval((int)x,(int)y,image.getWidth()/100,image.getHeight()/100);
