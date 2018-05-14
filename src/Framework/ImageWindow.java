@@ -37,7 +37,7 @@ public class ImageWindow extends Window {
         if(filter != null) {
             if(currentFilter!= null){
                removeFilter();
-            }
+           }
             currentFilter = filter;
            theImageViewer= currentFilter.activate(theImageViewer);
         }
