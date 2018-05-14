@@ -22,9 +22,7 @@ public class RedFilter extends ImageFilter {
 
     @Override
     public ImageView deactivate(ImageView input) {
-        ImageView returnView = input;
-        returnView.setEffect(null);
         input.setEffect(null);
-        return returnView;
+        return input;
     }
 }
