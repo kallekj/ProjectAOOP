@@ -9,3 +9,4 @@ ATT GÖRA LISTA FÖR PROJEKTET
                                                       	at Framework.ImageWindow.removeFilter(ImageWindow.java:46)
                                                       	at Framework.Window.lambda$new$14(Window.java:176)"
 7. Lägg till korrekt text i help och about
+8. Enligt Marek har vi gjort fel på vertical stripes, tjockleken på stripesen ska vara proptionell mot avståndet mot kanten där dom börjar
