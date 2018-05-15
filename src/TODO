@@ -9,3 +9,7 @@ ATT GÖRA LISTA FÖR PROJEKTET
                                                       	at Framework.ImageWindow.removeFilter(ImageWindow.java:46)
                                                       	at Framework.Window.lambda$new$14(Window.java:176)"
 7. Lägg till korrekt text i help och about
+8. Skapa blank bild
+9. Fixa stack så man kan göra "undo"
+10. Fixa så paint målar hela vägen
+11. Gör så man kan ha flera filter samtidigt

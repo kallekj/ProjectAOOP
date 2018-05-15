@@ -1,13 +1,13 @@
 package Filters;
 
-import Framework.ImageFilter;
+import Framework.ImageModifier;
 import javafx.scene.effect.Blend;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.ColorInput;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
-public class RedFilter extends ImageFilter {
+public class RedFilter extends ImageModifier {
 
 
     @Override

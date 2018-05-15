@@ -1,10 +1,10 @@
 package Filters;
 
-import Framework.ImageFilter;
+import Framework.ImageModifier;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 
-public class GrayScale  extends ImageFilter {
+public class GrayScale  extends ImageModifier {
     private String filterName = "Grayscale";
 
     @Override

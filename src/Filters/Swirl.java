@@ -1,6 +1,6 @@
 package Filters;
 
-import Framework.ImageFilter;
+import Framework.ImageModifier;
 import Framework.SliderBox;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 
 import java.awt.image.BufferedImage;
 
-public class Swirl extends ImageFilter{
+public class Swirl extends ImageModifier {
     private Image originalImage;
     private Image returnImage;
     private String filterName = "Swirl";

@@ -3,11 +3,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.File;
+import java.util.Stack;
 
 
 public class ImageWindow extends Window {
     private ImageView theImageViewer;
-    private ImageFilter currentFilter;
+    private Stack<ModifiedImage> changeStack;
+    private Stack<ModifiedImage> cacheStack;
 
     public ImageWindow (Stage primaryStage){
         super(primaryStage);
@@ -19,33 +21,47 @@ public class ImageWindow extends Window {
 
     @Override
     public ImageView updateImageView(File inputFile){
+        changeStack = new Stack<ModifiedImage>();
+        cacheStack = new Stack<ModifiedImage>();
         String fileURL = inputFile.getAbsolutePath();
         Image newImage = new Image("file:"+fileURL);
-        if(currentFilter != null){
-            removeFilter();
-        }
+        ModifiedImage rootMImage = new ModifiedImage(newImage, null  );
+        changeStack.push(rootMImage);
         theImageViewer.setImage(newImage);
         theImageViewer.setEffect(null);
-
-     return theImageViewer;
+        return theImageViewer;
     }
 
 
     @Override
-    public void setCurrentFilter(ImageFilter filter) {
-        theImageViewer = super.getImageView();
-        if(filter != null) {
-            if(currentFilter!= null){
-               removeFilter();
-           }
-            currentFilter = filter;
-           theImageViewer= currentFilter.activate(theImageViewer);
+    public void setCurrentModifier(ImageModifier modifier) {
+        if(modifier != null) {
+        ModifiedImage newMImage = new ModifiedImage(changeStack.peek().getImage(), modifier) ;
+        theImageViewer= newMImage.getModifier().activate(theImageViewer);
+        changeStack.push(newMImage);
         }
     }
-    public void removeFilter(){
-        theImageViewer = currentFilter.deactivate(theImageViewer);
-        currentFilter = null;
+    @Override
+    public void removeModifier() {
+        if (changeStack.peek().getModifier() != null) {
+            theImageViewer = changeStack.peek().getModifier().deactivate(theImageViewer);
+            cacheStack.push(changeStack.pop());
+        }
     }
 
-
+    @Override
+    public void removeAllModifiers() {
+        while(changeStack.peek().getModifier() != null){
+            changeStack.pop();
+        }
+        theImageViewer.setImage(changeStack.peek().getImage());
+        theImageViewer.setEffect(null);
+    }
+    @Override
+    public void  undoRemoval(){
+        if(cacheStack.size() >0 ) {
+            changeStack.push(cacheStack.pop());
+            setCurrentModifier(changeStack.peek().getModifier());
+        }
+    }
 }

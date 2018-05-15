@@ -1,6 +1,6 @@
 package Filters;
 
-import Framework.ImageFilter;
+import Framework.ImageModifier;
 import Framework.SliderBox;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 
-public class BrightnessFilter extends ImageFilter {
+public class BrightnessFilter extends ImageModifier {
 
     private Image originalImage;
     private Image returnImage;
