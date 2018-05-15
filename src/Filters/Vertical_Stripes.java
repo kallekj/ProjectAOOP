@@ -1,13 +1,13 @@
 package Filters;
 
-import Framework.ImageFilter;
+import Framework.ImageModifier;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.awt.*;
 
-public class Vertical_Stripes extends ImageFilter {
+public class Vertical_Stripes extends ImageModifier {
     Image originalImage = null;
     @Override
     public ImageView activate(ImageView input) {

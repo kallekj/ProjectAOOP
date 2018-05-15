@@ -1,6 +1,6 @@
 package Filters;
 
-import Framework.ImageFilter;
+import Framework.ImageModifier;
 import Framework.SliderBox;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 
 
 
-public class Paint extends ImageFilter {
+public class Paint extends ImageModifier {
     Image originalImage = null;
     double initX = 0;
     double initY = 0;
@@ -91,7 +91,8 @@ return returnImageView;
 
     @Override
     public ImageView deactivate(ImageView input) {
-        return null;
+        input.setImage(originalImage);
+        return input;
     }
     private void initSlider(){
         redSlider= new Slider(0,255,0);

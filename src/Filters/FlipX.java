@@ -1,12 +1,9 @@
 package Filters;
 
-import Framework.ImageFilter;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
+import Framework.ImageModifier;
 import javafx.scene.image.ImageView;
-import java.awt.image.BufferedImage;
 
-public class FlipX extends ImageFilter {
+public class FlipX extends ImageModifier {
 
     @Override
     public ImageView activate(ImageView input) {

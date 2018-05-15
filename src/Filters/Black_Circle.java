@@ -1,6 +1,6 @@
 package Filters;
 
-import Framework.ImageFilter;
+import Framework.ImageModifier;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 
 import java.awt.*;
 
-public class Black_Circle extends ImageFilter {
+public class Black_Circle extends ImageModifier {
     Image originalImage = null;
     @Override
     public ImageView activate(ImageView input) {
