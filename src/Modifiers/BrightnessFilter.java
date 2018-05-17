@@ -1,4 +1,4 @@
-package Filters;
+package Modifiers;
 
 import Framework.ImageModifier;
 import Framework.SliderBox;
@@ -17,10 +17,12 @@ public class BrightnessFilter extends ImageModifier {
 
     private Image originalImage;
     private Image returnImage;
-    private String filterName = "Brightness";
     private float intensity;
     private Slider theSlider;
-
+    /**
+     * @return ImageView with image colors brightened by the intensity selected in the slider
+     * @param input , the ImageView containing the image to be added brightened
+     */
     @Override
     public ImageView activate(ImageView input) {
         originalImage = input.getImage();
@@ -43,7 +45,10 @@ public class BrightnessFilter extends ImageModifier {
         return resultView;
     }
 
-
+    /**
+     * @return ImageView with image colors brightened by the intensity selected in the slider
+     * @param input , the ImageView containing the image to be reset
+     */
     @Override
     public ImageView deactivate(ImageView input) {
         input.setEffect(null);

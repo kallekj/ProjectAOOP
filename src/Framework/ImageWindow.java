@@ -10,7 +10,11 @@ public class ImageWindow extends Window {
     private ImageView theImageViewer;
     private Stack<ModifiedImage> changeStack;
     private Stack<ModifiedImage> cacheStack;
-
+    /**
+     *
+     * @param primaryStage to be initialized
+     * @return A new ImageWindow
+     */
     public ImageWindow (Stage primaryStage){
         super(primaryStage);
     }

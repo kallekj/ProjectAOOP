@@ -1,24 +1,24 @@
 package Framework;
 
 
-import Filters.*;
+import Modifiers.*;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -38,6 +38,8 @@ public abstract class  Window {
     private Group mainRoot;
     private KeyCodeCombination undoKeyCombination = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_ANY);
     private KeyCodeCombination undoRemovalCompination = new KeyCodeCombination(KeyCode.Y,KeyCombination.CONTROL_ANY);
+    private MenuBar menuBar;
+    private  VBox pane;
 
     public abstract ImageView  createCenterComponent();
     public abstract ImageView updateImageView(File inputFile);
@@ -71,11 +73,11 @@ public abstract class  Window {
         // Main Scene
         mainRoot = new Group();
         mainScene = new Scene(mainRoot, SCENE_WIDTH, SCENE_HEIGHT);
-        VBox pane = new VBox();
+         pane = new VBox();
 
 
         // MenuBar
-        MenuBar menuBar = new MenuBar();
+         menuBar = new MenuBar();
         menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
         pane.getChildren().add(menuBar);
 
@@ -88,39 +90,53 @@ public abstract class  Window {
         MenuItem itemOpen = new MenuItem("Open");
         FileChooser itemSelector = new FileChooser();
 
-        // EDIT THIS TO ONLY SELECT VALID IMAGES
+
         itemSelector.setTitle("Select Image");
         itemOpen.setOnAction(event -> {
             File selectedItem = itemSelector.showOpenDialog( primaryStage);
             if(selectedItem != null){
-                TESTIMAGE = selectedItem;
-                ImageView newImageView =  updateImageView(selectedItem);
-                Group newRoot = new Group();
-                Scene newScene;
-                if(newImageView.getImage().getWidth() > 1300){
-                    // Calculate the scale change to set correct height value in order to preserve the aspect ratio
-                    double imgWidth = newImageView.getImage().getWidth();
-                    double imgScale = 1300/imgWidth;
-                    double newImgHeight = newImageView.getImage().getHeight() * imgScale;
-                     newScene = new Scene( newRoot,1300, newImgHeight + menuBar.getHeight());
+                updateScene(updateImageView(selectedItem));
+            }
+    });
 
-                }else{
-                     newScene = new Scene( newRoot,newImageView.getImage().getWidth(), newImageView.getImage().getHeight() + menuBar.getHeight());
+        MenuItem itemCreator = new MenuItem("New Image");
+        itemCreator.setOnAction(event -> {
+            ImageCreatorBox userInput = new ImageCreatorBox();
+            userInput.display();
+            userInput.getCreateButton().setOnAction(event1 -> {
+                int selectedWidth = userInput.getSelectedWidth();
+                int selectedHeight = userInput.getSelectedHeight();
+                Color selectedColor = userInput.getSelectedColor();
+                if((selectedColor!=null) &&(selectedWidth != 0) && (selectedHeight != 0)){
+                    userInput.closeWindow();
+                    WritableImage createdImage = new WritableImage(selectedWidth,selectedHeight);
+                    PixelWriter pixelWriter = createdImage.getPixelWriter();
+                    for(int x = 0; x < createdImage.getWidth(); x++){
+                        for (int y = 0; y < createdImage.getHeight(); y++){
+                            pixelWriter.setColor(x,y,selectedColor);
+                        }
+                    }
+                    RenderedImage saveImage = SwingFXUtils.fromFXImage(createdImage,null);
+                    FileChooser fileSaver = new FileChooser();
+                    fileSaver.setTitle("Save New Image");
+                    File newFile = fileSaver.showSaveDialog(primaryStage);
+                    if(newFile != null){
+                        try{ ImageIO.write(saveImage,"png",new File( newFile.toString()));
+                            updateScene(updateImageView(newFile));
+
+                        }
+                        catch(IOException ex){
+                            Logger.getLogger(FileChooser.class.getName()).log(Level.SEVERE,null,ex);
+
+                        }
+                    }
+
                 }
 
-                newRoot.getChildren().add(pane);
-                newImageView.setPreserveRatio(true);
-                newImageView.fitWidthProperty().bind(newScene.widthProperty());
-                newImageView.fitHeightProperty().bind(newScene.heightProperty());
-                theImageViewer = newImageView;
-                mainScene =newScene;
-                mainRoot = newRoot;
-                window.setScene(mainScene);
-                window.sizeToScene();
+            });
 
-            }
+
         });
-        MenuItem itemCreator = new MenuItem("New");
 
 
         // This section handles the save file operation
@@ -223,8 +239,29 @@ public abstract class  Window {
         window.show();
 
     }
-    public ImageView getImageView(){
-        return  theImageViewer;
+    public void updateScene(ImageView newImageView){
+        Group newRoot = new Group();
+        Scene newScene;
+        if(newImageView.getImage().getWidth() > 1300){
+            // Calculate the scale change to set correct height value in order to preserve the aspect ratio
+            double imgWidth = newImageView.getImage().getWidth();
+            double imgScale = 1300/imgWidth;
+            double newImgHeight = newImageView.getImage().getHeight() * imgScale;
+            newScene = new Scene( newRoot,1300, newImgHeight + menuBar.getHeight());
+
+        }else{
+            newScene = new Scene( newRoot,newImageView.getImage().getWidth(), newImageView.getImage().getHeight() + menuBar.getHeight());
+        }
+
+        newRoot.getChildren().add(pane);
+        newImageView.setPreserveRatio(true);
+        newImageView.fitWidthProperty().bind(newScene.widthProperty());
+        newImageView.fitHeightProperty().bind(newScene.heightProperty());
+        theImageViewer = newImageView;
+        mainScene =newScene;
+        mainRoot = newRoot;
+        window.setScene(mainScene);
+        window.sizeToScene();
     }
 
 }
