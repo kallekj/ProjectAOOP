@@ -1,7 +1,7 @@
 package Modifiers;
 
-import Framework.ImageModifier;
-import Framework.SliderBox;
+import Project.ImageModifier;
+import Project.SliderBox;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
@@ -27,6 +27,7 @@ public class Swirl extends ImageModifier {
         originalImage = input.getImage();
         returnImage = input.getImage();
         ImageView resultView = input;
+
         initSlider();
         double x0 = 0.5 * ( input.getImage().getWidth() -1) ;
         double y0 = 0.5 *(input.getImage().getHeight() -1);
@@ -69,7 +70,6 @@ public class Swirl extends ImageModifier {
      */
     @Override
     public ImageView deactivate(ImageView input) {
-        input.setEffect(null);
         input.setImage(originalImage);
         return input;
     }

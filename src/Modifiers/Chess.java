@@ -1,6 +1,6 @@
 package Modifiers;
 
-import Framework.ImageModifier;
+import Project.ImageModifier;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -39,7 +39,6 @@ public class Chess extends ImageModifier {
      */
     @Override
     public ImageView deactivate(ImageView input) {
-        input.setEffect(null);
         input.setImage(originalImage);
         return input;
     }

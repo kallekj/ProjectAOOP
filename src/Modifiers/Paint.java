@@ -1,6 +1,6 @@
 package Modifiers;
 
-import Framework.ImageModifier;
+import Project.ImageModifier;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -61,9 +61,6 @@ public class Paint extends ImageModifier {
         returnImageView.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.println("Event.get(), X = " + event.getX() + ", Y = " + event.getY());
-                System.out.println("Event.getScene(), X = " + event.getSceneX() + ", Y = " + event.getSceneY());
-                System.out.println("Event.getScreen(), X = " + event.getScreenX() + ", Y = " + event.getScreenY());
                 initX = event.getX();
                 initY = event.getY();
                 event.consume();

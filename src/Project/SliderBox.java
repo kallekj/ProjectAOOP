@@ -1,12 +1,10 @@
-package Framework;
+package Project;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -17,7 +15,6 @@ public class SliderBox  {
     private static double returnValue;
     private  static VBox layout;
     private static Stage window;
-
     public static void display(String title, Slider slider){
 
         window = new Stage();
@@ -29,10 +26,8 @@ public class SliderBox  {
         window.setAlwaysOnTop(false);
         window.setResizable(false);
         returnValue = slider.getValue();
-
         layout = new VBox(50);
         addSlider(title,slider);
-
         layout.setAlignment(Pos.CENTER);
 
 

@@ -1,6 +1,6 @@
 package Modifiers;
 
-import Framework.ImageModifier;
+import Project.ImageModifier;
 import javafx.scene.image.ImageView;
 
 public class FlipX extends ImageModifier {
@@ -29,7 +29,6 @@ public class FlipX extends ImageModifier {
      */
     @Override
     public ImageView deactivate(ImageView input) {
-        input.setEffect(null);
         input.setScaleX(1);
         return input;
     }
