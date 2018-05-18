@@ -15,8 +15,13 @@ public class SliderBox  {
     private static double returnValue;
     private  static VBox layout;
     private static Stage window;
-    public static void display(String title, Slider slider){
 
+    /**
+     *
+     * @param title The title to display
+     * @param slider The first slider used for value selection
+     */
+    public static void display(String title, Slider slider){
         window = new Stage();
         window.initModality(Modality.WINDOW_MODAL);
         window.setTitle(title);
@@ -36,6 +41,12 @@ public class SliderBox  {
         window.show();
     }
 
+    /**
+     *
+     * @param title Title for the slider
+     * @param slider The slider to be added
+     * @precondition display has been used
+     */
     public static void addSlider(String title, Slider slider){
         Separator newSeparator = new Separator();
         TextField newTextField = new TextField(title);

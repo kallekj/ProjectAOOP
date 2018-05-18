@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -26,14 +27,14 @@ import static javafx.scene.control.ColorPicker.STYLE_CLASS_SPLIT_BUTTON;
 
 public class Paint extends ImageModifier {
     private Image originalImage = null;
-    private double initX = 0;
-    private double initY = 0;
-    double imgScale = 0;
     private Color currentColor;
+    private Stage colorWindow;
+
     /**
      *
      * @param input The ImageView used as a Canvas
-     * @return ImageView with the users paint ontop
+     * @return ImageView with the users paint on
+     *  @precondition ImageView not null
      */
     @Override
     public ImageView activate(ImageView input) {
@@ -43,7 +44,7 @@ public class Paint extends ImageModifier {
         final double maxX = input.getImage().getWidth();
         final double maxY = input.getImage().getHeight();
         BufferedImage image = SwingFXUtils.fromFXImage(input.getImage(),null);
-        Stage colorWindow = new Stage();
+        colorWindow = new Stage();
         colorWindow.setHeight(200);
         colorWindow.setWidth(400);
         colorWindow.setResizable(false);
@@ -58,21 +59,14 @@ public class Paint extends ImageModifier {
         colorBox.setAlignment(Pos.CENTER);
         colorBox.getChildren().add(theColorPicker);
 
-        returnImageView.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                initX = event.getX();
-                initY = event.getY();
-                event.consume();
-            }
-        });
+
         returnImageView.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 double x = event.getX();
                 double y = event.getY();
 
-                if(x < maxX && y < maxY){
+                if(x < maxX && y < maxY && colorWindow.isShowing()){
                     Graphics2D graphics = (Graphics2D) image.getGraphics();
                     java.awt.Color awtColor = new java.awt.Color( (int) (currentColor.getRed() *255),(int)(currentColor.getGreen() *255),(int)(currentColor.getBlue() *255));
                     graphics.setPaint(awtColor);
@@ -92,9 +86,12 @@ return returnImageView;
      *
      * @param input The painted ImageView to be reset
      * @return ImageView with its image reset
+     * @precondition  activate has been used
+     * @postcondition Modifier no longer active
      */
     @Override
     public ImageView deactivate(ImageView input) {
+        input.setOnMouseDragged(null);
         input.setImage(originalImage);
         return input;
     }

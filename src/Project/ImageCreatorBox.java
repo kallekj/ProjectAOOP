@@ -25,6 +25,9 @@ public class ImageCreatorBox {
     private static Stage imageSetEntry;
     private static Button CreateButton ;
 
+    /**
+     * @postcondition fields are not null
+     */
     public static void display() {
 
          imageSetEntry = new Stage();
@@ -73,19 +76,39 @@ public class ImageCreatorBox {
         imageSetEntry.show();
     }
 
+    /**
+     * @precondition display has been used
+     * @return CreateButton
+     */
+
     public static Button getCreateButton() {
         return CreateButton;
     }
+    /**
+     * @precondition display has been used
+     * @return Selected Height
+     */
     public static int getSelectedHeight(){
         return selectedHeight;
     }
+    /**
+     * @precondition display has been used
+     * @return Selected Width
+     */
     public static int getSelectedWidth(){
         return selectedWidth;
     }
-
+    /**
+     * @precondition display has been used
+     * @return Selected Color
+     */
     public static Color getSelectedColor() {
         return selectedColor;
     }
+    /**
+     * @precondition display has been used
+     * @postcondition Stage is closed
+     */
     public static void closeWindow(){
         imageSetEntry.fireEvent(new WindowEvent(imageSetEntry,WindowEvent.WINDOW_CLOSE_REQUEST));
     }

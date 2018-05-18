@@ -13,6 +13,7 @@ public class RedFilter extends ImageModifier {
      *
      * @param input The ImageView to be filtered
      * @return ImageView with its image only containing its red properties
+     *  @precondition ImageView not null
      */
     @Override
     public ImageView activate(ImageView input) {
@@ -27,6 +28,8 @@ public class RedFilter extends ImageModifier {
      *
      * @param input The filtered ImageView to be reset
      * @return ImageView with its image colors back to normal
+     * @precondition  activate has been used
+     * @postcondition Modifier no longer active
      */
     @Override
     public ImageView deactivate(ImageView input) {

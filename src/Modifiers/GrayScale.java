@@ -10,6 +10,7 @@ public class GrayScale  extends ImageModifier {
      *
      * @param input The ImageView to be grayscaled
      * @return ImageView only containing it's gray colors
+     *  @precondition ImageView not null
      */
     @Override
     public ImageView activate (ImageView input) {
@@ -23,6 +24,8 @@ public class GrayScale  extends ImageModifier {
      *
      * @param input The ImageView to be reset to colored
      * @return original ImageView
+     * @precondition  activate has been used
+     * @postcondition Modifier no longer active
      */
 
     @Override

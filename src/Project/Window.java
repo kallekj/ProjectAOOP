@@ -19,19 +19,20 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-public abstract class  Window extends Stage{
-    //private Window window;
+public abstract class  Window {
+    private Stage window;
     private final int SCENE_WIDTH = 700, SCENE_HEIGHT = 700;
     private Scene mainScene;
     private ImageView theImageView;
@@ -51,16 +52,18 @@ public abstract class  Window extends Stage{
 
 
     public  Window(Stage primaryStage){
-        setTitle("Main Window");
-        setResizable(false);
-        initStyle(StageStyle.UTILITY);
+        window = primaryStage;
+        window = new Stage();
+        window.setTitle("Main Window");
+        window.setResizable(false);
+        window.initStyle(StageStyle.UTILITY);
 
         theImageView = createCenterComponent();
-        setOnCloseRequest(e ->{
-            e.consume();
-            close();
+        window.setOnCloseRequest(e ->{
+           e.consume();
+            window. close();
         });
-        addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+        window.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if(undoKeyCombination.match(event)){
@@ -79,7 +82,7 @@ public abstract class  Window extends Stage{
 
         // MenuBar
          menuBar = new MenuBar();
-        menuBar.prefWidthProperty().bind(this.widthProperty());
+        menuBar.prefWidthProperty().bind(this.window.widthProperty());
         pane.getChildren().add(menuBar);
 
 
@@ -221,13 +224,56 @@ public abstract class  Window extends Stage{
         modifiers.getItems().addAll(swirl,grayScale,flipX,red_Filter, paint,brightness,invertFilter,patterns,noFilter);
 
         // Help menu
-        Menu helpMenu = new Menu("Help");
-        MenuItem help = new MenuItem("Help");
-        help.setOnAction(event -> TextBox.display("Help",  "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tinci"));
-        MenuItem about = new MenuItem("About");
-        about.setOnAction(event -> TextBox.display("About", "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tinci"));
+        File javaDoc =new File( (new File("").getAbsolutePath() + "/JavaDoc/index.html"));
+        WebView javaDocView = new WebView();
+        WebEngine webEngine = javaDocView.getEngine();
+        ScrollPane javaPane = new ScrollPane();
 
-        helpMenu.getItems().addAll(help, about);
+        Menu helpMenu = new Menu("Help");
+        MenuItem  help = new MenuItem("Help");
+        File helpFile = new File(new File("").getAbsolutePath() + "/src/Texts/help");
+        String helpText ="";
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(helpFile));
+            String line;
+            while ((line = bufferedReader.readLine()) != null){
+                helpText = helpText + line +"\n";
+            }
+        }
+      catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Text helpTextNode = new Text(helpText);
+        help.setOnAction(event -> NodeBox.display("Help",helpTextNode));
+
+        MenuItem about = new MenuItem("About");
+        File aboutFile = new File(new File("").getAbsolutePath() + "/src/Texts/about");
+        String aboutText ="";
+        try{
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(aboutFile));
+            String line;
+            while ((line = bufferedReader.readLine()) != null){
+                aboutText = aboutText + line +"\n";
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Text aboutTextNode = new Text(aboutText);
+        about.setOnAction(event -> NodeBox.display("About", aboutTextNode ));
+
+
+        MenuItem openJavaDoc = new MenuItem("JavaDoc");
+        openJavaDoc.setOnAction(event -> {
+            webEngine.load(javaDoc.toURI().toString());
+            String test = javaDoc.toURI().toString();
+            NodeBox.display("Help",javaDocView);
+
+        });
+        helpMenu.getItems().addAll(help, about,openJavaDoc);
 
         theImageView.setPreserveRatio(true);
         pane.getChildren().add(theImageView);
@@ -235,10 +281,16 @@ public abstract class  Window extends Stage{
         file.getItems().addAll(itemOpen,itemCreator, itemSave, itemExit);
         menuBar.getMenus().addAll(file, modifiers, helpMenu);
         mainRoot.getChildren().addAll(pane);
-        setScene(mainScene);
-        show();
-
+        window.setScene(mainScene);
+        window.show();
     }
+
+    /**
+     *
+     * @param newImageView The ImageView to scale the scene to
+     * @precondition Window initialized
+     * @postcondition Scene updated
+     */
     public void updateScene(ImageView newImageView){
         Group newRoot = new Group();
         Scene newScene;
@@ -260,8 +312,8 @@ public abstract class  Window extends Stage{
         theImageView = newImageView;
         mainScene =newScene;
         mainRoot = newRoot;
-        setScene(mainScene);
-        sizeToScene();
+        window.setScene(mainScene);
+        window.sizeToScene();
     }
 
 }

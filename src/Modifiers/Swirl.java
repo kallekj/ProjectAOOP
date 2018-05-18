@@ -21,6 +21,7 @@ public class Swirl extends ImageModifier {
      *
      * @param input The ImageView containing a image to be swirled
      * @return ImageView with its image swirled
+     *  @precondition ImageView not null
      */
     @Override
     public ImageView activate(ImageView input) {
@@ -67,6 +68,8 @@ public class Swirl extends ImageModifier {
      *
      * @param input The ImageView containing an image to be reset
      * @return ImageView with its image reset
+     * @precondition  activate has been used
+     * @postcondition Modifier no longer active
      */
     @Override
     public ImageView deactivate(ImageView input) {
