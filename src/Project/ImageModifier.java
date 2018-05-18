@@ -1,4 +1,4 @@
-package Framework;
+package Project;
 import javafx.scene.image.ImageView;
 
 public abstract class ImageModifier {

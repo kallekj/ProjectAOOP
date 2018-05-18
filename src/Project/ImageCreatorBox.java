@@ -1,10 +1,6 @@
-package Framework;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
+package Project;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,16 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
-import java.io.File;
 
 public class ImageCreatorBox {
     private static int selectedHeight;

@@ -1,6 +1,6 @@
 package Modifiers;
 
-import Framework.ImageModifier;
+import Project.ImageModifier;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 

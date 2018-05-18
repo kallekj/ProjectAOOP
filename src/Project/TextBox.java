@@ -1,11 +1,8 @@
-package Framework;
+package Project;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
