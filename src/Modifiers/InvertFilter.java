@@ -1,13 +1,18 @@
-package Filters;
+package Modifiers;
 
-import Framework.ImageFilter;
+import Framework.ImageModifier;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.awt.image.BufferedImage;
 
-public class InvertFilter extends ImageFilter {
+public class InvertFilter extends ImageModifier {
     Image originalImage = null;
+    /**
+     *
+     * @param input The ImageView to get its colors inverted
+     * @return ImageView with inverted colors
+     */
     @Override
     public ImageView activate(ImageView input) {
         originalImage = input.getImage();
@@ -20,9 +25,9 @@ public class InvertFilter extends ImageFilter {
                 int originalRed = (pixel & 0x00ff0000) >> 16;
                 int originalGreen = (pixel & 0x0000ff00) >>8;
                 int originalBlue = (pixel & 0x000000ff) ;
-                int newRed = (256 - originalRed) << 16;
-                int newGreen  = (256 - originalGreen) << 8;
-                int newBlue = (256- originalBlue);
+                int newRed = (255 - originalRed) << 16;
+                int newGreen  = (255 - originalGreen) << 8;
+                int newBlue = (255- originalBlue);
                 int newPixel = (newRed + newBlue + newGreen);
                 invertedImage.setRGB(x,y,newPixel);
             }
@@ -31,11 +36,16 @@ public class InvertFilter extends ImageFilter {
         returnImageView.setImage(newImage);
         return returnImageView;
     }
+    /**
+     *
+     * @param input The ImageView to be mirrored
+     * @return ImageView with normal colors
+     */
     @Override
     public ImageView deactivate(ImageView input) {
         ImageView returnView = input;
         returnView.setImage(originalImage);
-        input.setEffect(null);
+
         return returnView;
     }
 }

@@ -1,0 +1,6 @@
+This application lets you modify an image with different modifiers:
+Black Circle: This draws a black circle over the image stretching to the edges
+Brightness Filter: This lets you modify the brightness of the image, a slider will open so you can increase/decrease the intensity
+Chess: Draws a chessboard over the image
+FlipX: Mirrors the image
+Grayscale: Makes the image grayscaled

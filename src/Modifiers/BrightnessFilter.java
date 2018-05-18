@@ -1,6 +1,6 @@
-package Filters;
+package Modifiers;
 
-import Framework.ImageFilter;
+import Framework.ImageModifier;
 import Framework.SliderBox;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,14 +13,16 @@ import javafx.scene.image.ImageView;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 
-public class BrightnessFilter extends ImageFilter {
+public class BrightnessFilter extends ImageModifier {
 
     private Image originalImage;
     private Image returnImage;
-    private String filterName = "Brightness";
     private float intensity;
     private Slider theSlider;
-
+    /**
+     * @return ImageView with image colors brightened by the intensity selected in the slider
+     * @param input , the ImageView containing the image to be added brightened
+     */
     @Override
     public ImageView activate(ImageView input) {
         originalImage = input.getImage();
@@ -43,7 +45,10 @@ public class BrightnessFilter extends ImageFilter {
         return resultView;
     }
 
-
+    /**
+     * @return ImageView with image colors brightened by the intensity selected in the slider
+     * @param input , the ImageView containing the image to be reset
+     */
     @Override
     public ImageView deactivate(ImageView input) {
         input.setEffect(null);
