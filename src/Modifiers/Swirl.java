@@ -49,6 +49,7 @@ public class Swirl extends ImageModifier {
                         if (tempX >= 0 && tempX < bufferedImage.getWidth() && tempY >= 0 && tempY < bufferedImage.getHeight()) {
                             tempBufferedImage.setRGB(x, y, bufferedImage.getRGB(tempX, tempY));
 
+
                         }
 
                     }
@@ -58,9 +59,9 @@ public class Swirl extends ImageModifier {
                 Image newImage = SwingFXUtils.toFXImage(tempBufferedImage,null);
                 resultView.setImage(newImage);
 
+
             }
         });
-
 
         return resultView;
 }

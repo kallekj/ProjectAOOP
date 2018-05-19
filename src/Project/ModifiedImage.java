@@ -3,8 +3,8 @@ package Project;
 import javafx.scene.image.Image;
 
 public class ModifiedImage {
-    private final Image image;
-    private  final ImageModifier modifier;
+    private  Image image;
+    private   final ImageModifier modifier;
 
     /**
      *
@@ -30,5 +30,8 @@ public class ModifiedImage {
      */
     public ImageModifier getModifier() {
         return modifier;
+    }
+    public void setImage(Image inputImage){
+        image = inputImage;
     }
 }

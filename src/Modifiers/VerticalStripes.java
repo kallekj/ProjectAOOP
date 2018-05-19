@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 
 import java.awt.*;
 
-public class Vertical_Stripes extends ImageModifier {
+public class VerticalStripes extends ImageModifier {
     Image originalImage = null;
     /**
      *

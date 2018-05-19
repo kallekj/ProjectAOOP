@@ -24,15 +24,14 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-public abstract class  Window {
-    private Stage window;
+public abstract class  Window extends Stage{
+    //private Stage window;
     private final int SCENE_WIDTH = 700, SCENE_HEIGHT = 700;
     private Scene mainScene;
     private ImageView theImageView;
@@ -52,18 +51,15 @@ public abstract class  Window {
 
 
     public  Window(Stage primaryStage){
-        window = primaryStage;
-        window = new Stage();
-        window.setTitle("Main Window");
-        window.setResizable(false);
-        window.initStyle(StageStyle.UTILITY);
+       setTitle("Main Window");
+       setResizable(false);
 
         theImageView = createCenterComponent();
-        window.setOnCloseRequest(e ->{
+        setOnCloseRequest(e ->{
            e.consume();
-            window. close();
+             close();
         });
-        window.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+        addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if(undoKeyCombination.match(event)){
@@ -82,7 +78,7 @@ public abstract class  Window {
 
         // MenuBar
          menuBar = new MenuBar();
-        menuBar.prefWidthProperty().bind(this.window.widthProperty());
+        menuBar.prefWidthProperty().bind(this.widthProperty());
         pane.getChildren().add(menuBar);
 
 
@@ -203,7 +199,7 @@ public abstract class  Window {
 
         // Vertical stripes in Sub Menu
         MenuItem vertical_Stripes = new MenuItem("Vertical Stripes");
-        vertical_Stripes.setOnAction(event -> setCurrentModifier(new Vertical_Stripes()));
+        vertical_Stripes.setOnAction(event -> setCurrentModifier(new VerticalStripes()));
 
         // Chess in Sub Menu
         MenuItem chess = new MenuItem("Chess");
@@ -211,7 +207,7 @@ public abstract class  Window {
 
         // Black Circle in Sub Menu
         MenuItem black_Circle = new MenuItem("Black Circle");
-        black_Circle.setOnAction(event -> setCurrentModifier(new Black_Circle()));
+        black_Circle.setOnAction(event -> setCurrentModifier(new BlackCircle()));
 
         // Restore image to original
         MenuItem noFilter = new MenuItem("No Modifier");
@@ -281,8 +277,8 @@ public abstract class  Window {
         file.getItems().addAll(itemOpen,itemCreator, itemSave, itemExit);
         menuBar.getMenus().addAll(file, modifiers, helpMenu);
         mainRoot.getChildren().addAll(pane);
-        window.setScene(mainScene);
-        window.show();
+       setScene(mainScene);
+        show();
     }
 
     /**
@@ -312,8 +308,8 @@ public abstract class  Window {
         theImageView = newImageView;
         mainScene =newScene;
         mainRoot = newRoot;
-        window.setScene(mainScene);
-        window.sizeToScene();
+        setScene(mainScene);
+        sizeToScene();
     }
 
 }

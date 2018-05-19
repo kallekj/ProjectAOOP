@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 
 import java.awt.*;
 
-public class Black_Circle extends ImageModifier {
+public class BlackCircle extends ImageModifier {
     Image originalImage = null;
 
     /**

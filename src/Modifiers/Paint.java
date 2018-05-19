@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
@@ -20,6 +20,7 @@ import javafx.stage.WindowEvent;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Stack;
 
 
 import static javafx.scene.control.ColorPicker.STYLE_CLASS_SPLIT_BUTTON;
@@ -40,15 +41,14 @@ public class Paint extends ImageModifier {
     public ImageView activate(ImageView input) {
         originalImage = input.getImage();
         ImageView returnImageView =input;
-       // initSlider();
         final double maxX = input.getImage().getWidth();
         final double maxY = input.getImage().getHeight();
         BufferedImage image = SwingFXUtils.fromFXImage(input.getImage(),null);
-        colorWindow = new Stage();
-        colorWindow.setHeight(200);
-        colorWindow.setWidth(400);
-        colorWindow.setResizable(false);
-        colorWindow.setTitle("Color Selector");
+            colorWindow = new Stage();
+            colorWindow.setHeight(200);
+            colorWindow.setWidth(400);
+            colorWindow.setResizable(false);
+            colorWindow.setTitle("Color Selector");
         ColorPicker theColorPicker = new ColorPicker();
         theColorPicker.setValue(Color.WHITE);
         theColorPicker.setStyle(STYLE_CLASS_SPLIT_BUTTON);
@@ -72,6 +72,7 @@ public class Paint extends ImageModifier {
                     graphics.setPaint(awtColor);
                     graphics.fillOval((int)x,(int)y,image.getWidth()/100,image.getHeight()/100);
                     returnImageView.setImage(SwingFXUtils.toFXImage(image,null));
+
                 }
 
             }
@@ -80,7 +81,7 @@ public class Paint extends ImageModifier {
         colorWindow.initModality(Modality.WINDOW_MODAL);
         colorWindow.setScene(scene);
         colorWindow.show();
-return returnImageView;
+        return returnImageView;
     }
     /**
      *
