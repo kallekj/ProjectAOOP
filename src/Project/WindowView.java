@@ -1,35 +1,18 @@
 package Project;
 
 
-import Modifiers.*;
-import javafx.application.Platform;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import javax.imageio.ImageIO;
-import java.awt.image.RenderedImage;
-import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 public  class WindowView extends Stage{
     private final int SCENE_WIDTH = 700, SCENE_HEIGHT = 700;
     private Scene mainScene;
@@ -38,7 +21,7 @@ public  class WindowView extends Stage{
     private KeyCodeCombination undoKeyCombination = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_ANY);
     private KeyCodeCombination undoRemovalCombination = new KeyCodeCombination(KeyCode.Y,KeyCombination.CONTROL_ANY);
     private WindowController windowController;
-    private  VBox pane;
+    private VBox pane;
     private WindowModel theModel;
 
     /**
@@ -46,14 +29,15 @@ public  class WindowView extends Stage{
      * @param primaryStage
      */
     public WindowView(Stage primaryStage){
-       setTitle("Photo Modifier");
-       setResizable(false);
+        setTitle("Photo Modifier");
+        setResizable(false);
         theModel = new WindowModel(this);
         theImageView = theModel.createCenterComponent();
         setOnCloseRequest(e ->{
-           e.consume();
-             close();
+            e.consume();
+            close();
         });
+
         addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -61,16 +45,18 @@ public  class WindowView extends Stage{
                     theModel.removeModifier();
                 }
                 if(undoRemovalCombination.match(event)){
-                   theModel.undoRemoval();
+                    theModel.undoRemoval();
                 }
             }
         });
+
         // Main Scene
         mainRoot = new Group();
         mainScene = new Scene(mainRoot, SCENE_WIDTH, SCENE_HEIGHT);
-         pane = new VBox();
+        pane = new VBox();
+
         // MenuBar
-         windowController = new WindowController(this);
+        windowController = new WindowController(this);
         pane.getChildren().add(windowController);
         theImageView.setPreserveRatio(true);
         pane.getChildren().add(theImageView);

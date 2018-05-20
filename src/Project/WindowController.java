@@ -27,9 +27,13 @@ public class WindowController extends MenuBar {
      *
      * @param primaryStage The Viewer for the Controller to control
      */
+  
     public WindowController(WindowView primaryStage){
+
         WindowModel projectModel = primaryStage.getTheModel();
         prefWidthProperty().bind(primaryStage.widthProperty());
+
+        // New image/canvas
         MenuItem itemCreator = new MenuItem("New Image");
         itemCreator.setOnAction(event -> {
             ImageCreatorBox userInput = new ImageCreatorBox();
@@ -53,7 +57,7 @@ public class WindowController extends MenuBar {
                     File newFile = fileSaver.showSaveDialog(primaryStage);
                     if(newFile != null){
                         try{ ImageIO.write(saveImage,"png",new File( newFile.toString()));
-                           projectModel.updateImageView(newFile);
+                            projectModel.updateImageView(newFile);
 
                         }
                         catch(IOException ex){
@@ -80,7 +84,7 @@ public class WindowController extends MenuBar {
         itemOpen.setOnAction(event -> {
             File selectedItem = itemSelector.showOpenDialog( primaryStage);
             if(selectedItem != null){
-               projectModel.updateImageView(selectedItem);
+                projectModel.updateImageView(selectedItem);
             }
         });
 
