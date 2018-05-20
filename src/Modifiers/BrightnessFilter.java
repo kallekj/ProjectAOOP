@@ -19,11 +19,12 @@ public class BrightnessFilter extends ImageModifier {
     private Image returnImage;
     private float intensity;
     private Slider theSlider;
+
     /**
      * @return ImageView with image colors brightened by the intensity selected in the slider
      * @param input  The ImageView containing the image to be added brightened
      * @precondition  ImageView not null
-            */
+     */
     @Override
     public ImageView activate(ImageView input) {
         originalImage = input.getImage();
@@ -35,7 +36,7 @@ public class BrightnessFilter extends ImageModifier {
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                     intensity = newValue.floatValue() *(float) 0.1;
                     BufferedImage bufferedImage = SwingFXUtils.fromFXImage(returnImage, null);
-                    RescaleOp operation = new RescaleOp(intensity +1 , 0, null);
+                    RescaleOp operation = new RescaleOp(intensity + 1 , 0, null);
                     bufferedImage = operation.filter(bufferedImage, bufferedImage);
 
                     Image newImage = SwingFXUtils.toFXImage(bufferedImage, null);

@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 public class RedFilter extends ImageModifier {
-        private Image originalImage;
+    private Image originalImage;
     /**
      *
      * @param input The ImageView to be filtered

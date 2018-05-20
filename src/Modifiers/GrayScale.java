@@ -5,12 +5,10 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.*;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 
 public class GrayScale  extends ImageModifier {
     private Image originalImage;
-    private String filterName = "Grayscale";
     /**
      *
      * @param input The ImageView to be grayscaled
@@ -21,7 +19,7 @@ public class GrayScale  extends ImageModifier {
     public ImageView activate (ImageView input) {
         originalImage = input.getImage();
         ImageView returnImageView = input;
-       ColorAdjust grayScale = new ColorAdjust();
+        ColorAdjust grayScale = new ColorAdjust();
         grayScale.setSaturation(-1);
         returnImageView.setEffect(grayScale);
         returnImageView.setImage(returnImageView.snapshot(new SnapshotParameters(),null));

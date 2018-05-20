@@ -28,7 +28,6 @@ public class Chess extends ImageModifier {
             }
         }
 
-
         ImageView returnImageView = input;
         Image newImage = SwingFXUtils.toFXImage(bufferedImage,null);
         returnImageView.setImage(newImage);

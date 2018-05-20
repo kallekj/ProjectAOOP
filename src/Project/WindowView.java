@@ -96,6 +96,7 @@ public  class WindowView extends Stage{
         setScene(mainScene);
         sizeToScene();
     }
+
     public WindowModel getTheModel(){
         return theModel;
     }
