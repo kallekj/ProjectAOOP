@@ -1,6 +1,6 @@
 package Modifiers;
 
-import Framework.ImageModifier;
+import Project.ImageModifier;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,11 +9,13 @@ import java.awt.*;
 
 public class Chess extends ImageModifier {
     Image originalImage = null;
-    @Override
     /**
      * @param input , the ImageView containing the image to be added a back chess board
      * @return ImageView with black chessboard painted on image
+     * @precondition  ImageView not null
      */
+    @Override
+
     public ImageView activate(ImageView input) {
         originalImage = input.getImage();
         java.awt.image.BufferedImage bufferedImage = SwingFXUtils.fromFXImage(input.getImage(),null);
@@ -36,10 +38,11 @@ public class Chess extends ImageModifier {
     /**
      * @param input , the ImageView with chessboard drawn on the image
      * @return ImageView with black chessboard removed from image
+     * @precondition  activate has been used
+     * @postcondition Modifier no longer active
      */
     @Override
     public ImageView deactivate(ImageView input) {
-        input.setEffect(null);
         input.setImage(originalImage);
         return input;
     }

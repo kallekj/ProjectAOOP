@@ -1,59 +1,86 @@
-package Framework;
+package Project;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
+
 import java.io.File;
 import java.util.Stack;
 
 
-public class ImageWindow extends Window {
+public class WindowModel  {
     private ImageView theImageViewer;
     private Stack<ModifiedImage> changeStack;
     private Stack<ModifiedImage> cacheStack;
+    private WindowView theView;
+
+
     /**
      *
-     * @param primaryStage to be initialized
-     * @return A new ImageWindow
+     * @return A new ImageView
+     *
      */
-    public ImageWindow (Stage primaryStage){
-        super(primaryStage);
+    public WindowModel (WindowView stage){
+        theView = stage;
     }
-    @Override
+
     public ImageView createCenterComponent() {
         return theImageViewer = new ImageView();
     }
 
-    @Override
-    public ImageView updateImageView(File inputFile){
+    /**
+     *
+     * @param inputFile The directory of the new image
+     * @return Updated ImageView
+     * @precondition inputFile nor theImageView is null
+     */
+
+
+    public void updateImageView(File inputFile){
         changeStack = new Stack<ModifiedImage>();
         cacheStack = new Stack<ModifiedImage>();
+        cacheStack.clear();
+        changeStack.clear();
         String fileURL = inputFile.getAbsolutePath();
         Image newImage = new Image("file:"+fileURL);
         ModifiedImage rootMImage = new ModifiedImage(newImage, null  );
         changeStack.push(rootMImage);
         theImageViewer.setImage(newImage);
         theImageViewer.setEffect(null);
-        return theImageViewer;
+        theView.updateScene(theImageViewer);
     }
 
+    public ImageView getImageView(){
+        return  theImageViewer;
+    }
 
-    @Override
+    /**
+     *
+     * @param modifier The modifier to be set
+     * @postcondition ImageView is modified
+     */
+
     public void setCurrentModifier(ImageModifier modifier) {
         if(modifier != null) {
-        ModifiedImage newMImage = new ModifiedImage(changeStack.peek().getImage(), modifier) ;
-        theImageViewer= newMImage.getModifier().activate(theImageViewer);
-        changeStack.push(newMImage);
+            ModifiedImage newMImage = new ModifiedImage(changeStack.peek().getImage(), modifier) ;
+            theImageViewer= newMImage.getModifier().activate(theImageViewer);
+            changeStack.push(newMImage);
         }
     }
-    @Override
+    /**
+     * @precondition ImageView is modified
+     **/
+
     public void removeModifier() {
         if (changeStack.peek().getModifier() != null) {
+            changeStack.peek().setImage(theImageViewer.getImage());
             theImageViewer = changeStack.peek().getModifier().deactivate(theImageViewer);
             cacheStack.push(changeStack.pop());
         }
     }
+    /**
+     * @precondition ImageView is modified
+     * @postcondition The ImageView is no longer modified
+     **/
 
-    @Override
     public void removeAllModifiers() {
         while(changeStack.peek().getModifier() != null){
             changeStack.pop();
@@ -61,11 +88,17 @@ public class ImageWindow extends Window {
         theImageViewer.setImage(changeStack.peek().getImage());
         theImageViewer.setEffect(null);
     }
-    @Override
+    /**
+     * @precondition  removeModifier() has been used
+     * @postcondition ImageView is modified
+     **/
+
     public void  undoRemoval(){
         if(cacheStack.size() >0 ) {
             changeStack.push(cacheStack.pop());
-            setCurrentModifier(changeStack.peek().getModifier());
+            theImageViewer.setImage(changeStack.peek().getImage());
+            //setCurrentModifier(changeStack.peek().getModifier());
         }
     }
 }
+

@@ -1,4 +1,4 @@
-package Framework;
+package Project;
 
 
 import javafx.application.Application;
@@ -12,7 +12,7 @@ public class WindowApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ImageWindow theImageWindow = new ImageWindow(primaryStage);
+        WindowView window  = new WindowView(primaryStage);
 
     }
 }

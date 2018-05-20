@@ -1,7 +1,7 @@
 package Modifiers;
 
-import Framework.ImageModifier;
-import Framework.SliderBox;
+import Project.ImageModifier;
+import Project.SliderBox;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
@@ -21,8 +21,9 @@ public class BrightnessFilter extends ImageModifier {
     private Slider theSlider;
     /**
      * @return ImageView with image colors brightened by the intensity selected in the slider
-     * @param input , the ImageView containing the image to be added brightened
-     */
+     * @param input  The ImageView containing the image to be added brightened
+     * @precondition  ImageView not null
+            */
     @Override
     public ImageView activate(ImageView input) {
         originalImage = input.getImage();
@@ -48,10 +49,11 @@ public class BrightnessFilter extends ImageModifier {
     /**
      * @return ImageView with image colors brightened by the intensity selected in the slider
      * @param input , the ImageView containing the image to be reset
+     * @precondition  activate has been used
+     * @postcondition Modifier no longer active
      */
     @Override
     public ImageView deactivate(ImageView input) {
-        input.setEffect(null);
         input.setImage(originalImage);
         return input;
     }
