@@ -36,8 +36,11 @@ public class WindowController extends MenuBar {
         // New image/canvas
         MenuItem itemCreator = new MenuItem("New Image");
         itemCreator.setOnAction(event -> {
+            // Creates the "Create window" and opens it
             ImageCreatorBox userInput = new ImageCreatorBox();
             userInput.display();
+            // If the users clicks on the "Create" button, this will run and create a new image with the selected color
+            // When the image is created it will ask the user where to save it
             userInput.getCreateButton().setOnAction(event1 -> {
                 int selectedWidth = userInput.getSelectedWidth();
                 int selectedHeight = userInput.getSelectedHeight();
@@ -72,14 +75,17 @@ public class WindowController extends MenuBar {
 
         });
 
-        // File, this section handles the file menu
+
+
+        // ***************************************** FILE MENU *********************************************************
+
+
+        // File, this is the file menu
         Menu file = new Menu("File");
 
         // This Section handles the open file operation
         MenuItem itemOpen = new MenuItem("Open");
         FileChooser itemSelector = new FileChooser();
-
-
         itemSelector.setTitle("Select Image");
         itemOpen.setOnAction(event -> {
             File selectedItem = itemSelector.showOpenDialog( primaryStage);
@@ -113,6 +119,14 @@ public class WindowController extends MenuBar {
         MenuItem itemExit = new MenuItem("Exit", null);
         itemExit.setOnAction(e -> Platform.exit());
 
+        // Adds all the "file menu" items to the file menu
+        file.getItems().addAll(itemOpen,itemCreator, itemSave, itemExit);
+
+
+
+        // ************************************ FILTERS/MODIFIERS ******************************************************
+
+
         // This section handles filters
         Menu modifiers = new Menu ("Modify");
 
@@ -140,6 +154,7 @@ public class WindowController extends MenuBar {
         MenuItem brightness = new MenuItem("Brightness");
         brightness.setOnAction(event -> projectModel.setCurrentModifier(new BrightnessFilter()));
 
+        // Paint operation
         MenuItem paint = new MenuItem("Paint");
         paint.setOnAction(event -> projectModel.setCurrentModifier(new Paint()));
 
@@ -168,14 +183,18 @@ public class WindowController extends MenuBar {
         // Add all filters and patterns to the filter menu
         modifiers.getItems().addAll(swirl,grayScale,flipX,red_Filter, paint,brightness,invertFilter,patterns,noFilter);
 
-        // Help menu
-        File javaDoc =new File( (new File("").getAbsolutePath() + "/JavaDoc/index.html"));
-        WebView javaDocView = new WebView();
-        WebEngine webEngine = javaDocView.getEngine();
-        ScrollPane javaPane = new ScrollPane();
 
+
+        // ***************************************** HELP MENU *********************************************************
+
+
+        // Help menu
         Menu helpMenu = new Menu("Help");
-        MenuItem  help = new MenuItem("Help");
+
+        // The "Help" section
+        MenuItem help = new MenuItem("Help");
+
+        // Reads the help file
         File helpFile = new File(new File("").getAbsolutePath() + "/src/Texts/help");
         String helpText ="";
         try {
@@ -190,9 +209,14 @@ public class WindowController extends MenuBar {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // "Casts" the String from the bufferedReader to a Text object
         Text helpTextNode = new Text(helpText);
+
+        // Open a new window and displays the text
         help.setOnAction(event -> NodeBox.display("Help",helpTextNode));
 
+        // The "About" section, works exactly the same as the "Help"
         MenuItem about = new MenuItem("About");
         File aboutFile = new File(new File("").getAbsolutePath() + "/src/Texts/about");
         String aboutText ="";
@@ -210,17 +234,28 @@ public class WindowController extends MenuBar {
         Text aboutTextNode = new Text(aboutText);
         about.setOnAction(event -> NodeBox.display("About", aboutTextNode ));
 
+        // Finds where the JavaDoc index.html file location and creates a WebView+WebEngine to read the html files.
+        File javaDoc = new File( (new File("").getAbsolutePath() + "/JavaDoc/index.html"));
+        WebView javaDocView = new WebView();
+        WebEngine webEngine = javaDocView.getEngine();
 
+        // Creates the JavaDoc menu
         MenuItem openJavaDoc = new MenuItem("JavaDoc");
+        // Opens the JavaDoc
         openJavaDoc.setOnAction(event -> {
             webEngine.load(javaDoc.toURI().toString());
-            String test = javaDoc.toURI().toString();
             NodeBox.display("Help",javaDocView);
 
         });
+
+        // Adds all the "help menu" items to the help menu
         helpMenu.getItems().addAll(help, about,openJavaDoc);
 
-        file.getItems().addAll(itemOpen,itemCreator, itemSave, itemExit);
+
+
+        //**********************************ADD EVERYTHING TO THE MENU BAR**********************************************
+
+        // Adds all the menus to the menu bar
         getMenus().addAll(file, modifiers, helpMenu);
     }
 }

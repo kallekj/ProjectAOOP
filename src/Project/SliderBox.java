@@ -16,6 +16,8 @@ public class SliderBox  {
     private  static VBox layout;
     private static Stage window;
 
+    // This section will create a window with a slider, the user can later on add another slider with "addSlider()"
+
     /**
      *
      * @param title The title to display
@@ -34,7 +36,6 @@ public class SliderBox  {
         layout = new VBox(50);
         addSlider(title,slider);
         layout.setAlignment(Pos.CENTER);
-
 
         Scene scene = new Scene(layout);
         window.setScene(scene);

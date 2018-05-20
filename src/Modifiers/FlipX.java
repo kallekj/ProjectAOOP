@@ -3,7 +3,6 @@ package Modifiers;
 import Project.ImageModifier;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.*;
-import javafx.scene.paint.Color;
 
 public class FlipX extends ImageModifier {
     private Image originalImage;

@@ -30,6 +30,9 @@ public class ImageCreatorBox {
      */
     public static void display() {
 
+        // This section will create the "New image"-window, with all of its options. Width, height and background color.
+
+        // Creates the window where the user input all information
         imageSetEntry = new Stage();
         imageSetEntry.initModality(Modality.APPLICATION_MODAL);
         imageSetEntry.setHeight(500);
@@ -38,17 +41,20 @@ public class ImageCreatorBox {
         CreateButton = new Button("Create");
         CreateButton.setAlignment(Pos.BOTTOM_RIGHT);
         VBox EntryLayout = new VBox(30);
+
+        // Input the height
         Text newImgHeightLabel = new Text("New Image Height");
         TextField newImgHeight = new TextField();
-
-        Text newImgWidthLabel = new Text("New Image Width");
-        TextField newImgWidth = new TextField();
         newImgHeight.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 selectedHeight = Integer.parseInt(newValue);
             }
         });
+
+        // Input the width
+        Text newImgWidthLabel = new Text("New Image Width");
+        TextField newImgWidth = new TextField();
         newImgWidth.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -56,16 +62,18 @@ public class ImageCreatorBox {
             }
         });
 
-
+        // The color selector
         Text newImgColorLabel = new Text("Background color");
         ColorPicker backGroundColor = new ColorPicker();
         backGroundColor.setOnAction(event -> {
             selectedColor = backGroundColor.getValue();
         });
+
         imageSetEntry.setOnCloseRequest(event -> {
             event.consume();
             imageSetEntry.close();
         });
+
         EntryLayout.getChildren().addAll(newImgHeightLabel,newImgHeight,separator1,newImgWidthLabel,newImgWidth,separator2,newImgColorLabel,backGroundColor,separator3,CreateButton);
         Scene scene = new Scene(EntryLayout);
         imageSetEntry.setScene(scene);

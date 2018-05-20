@@ -1,12 +1,9 @@
 package Project;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -15,6 +12,9 @@ public class NodeBox {
 
     private  static ScrollPane layout;
     private static Stage window;
+
+    // This section will create a new window where the content of "Node" will be shown
+    // In this case we use it to show the about, help and JavaDoc.
 
     /**
      *

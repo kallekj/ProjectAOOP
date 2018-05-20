@@ -16,11 +16,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Stack;
+
 
 
 import static javafx.scene.control.ColorPicker.STYLE_CLASS_SPLIT_BUTTON;
@@ -44,21 +43,21 @@ public class Paint extends ImageModifier {
         final double maxX = input.getImage().getWidth();
         final double maxY = input.getImage().getHeight();
         BufferedImage image = SwingFXUtils.fromFXImage(input.getImage(),null);
-            colorWindow = new Stage();
-            colorWindow.setHeight(200);
-            colorWindow.setWidth(400);
-            colorWindow.setResizable(false);
-            colorWindow.setTitle("Color Selector");
+        colorWindow = new Stage();
+        colorWindow.setHeight(200);
+        colorWindow.setWidth(400);
+        colorWindow.setResizable(false);
+        colorWindow.setTitle("Color Selector");
         ColorPicker theColorPicker = new ColorPicker();
         theColorPicker.setValue(Color.WHITE);
         theColorPicker.setStyle(STYLE_CLASS_SPLIT_BUTTON);
         VBox colorBox = new VBox(30);
         theColorPicker.setOnAction((ActionEvent event )-> {currentColor = theColorPicker.getValue();
-        colorBox.setBackground(new Background(new BackgroundFill(theColorPicker.getValue(),null,null)));});
+            colorBox.setBackground(new Background(new BackgroundFill(theColorPicker.getValue(),null,null)));
+        });
 
         colorBox.setAlignment(Pos.CENTER);
         colorBox.getChildren().add(theColorPicker);
-
 
         returnImageView.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
@@ -68,7 +67,7 @@ public class Paint extends ImageModifier {
 
                 if(x < maxX && y < maxY && colorWindow.isShowing()){
                     Graphics2D graphics = (Graphics2D) image.getGraphics();
-                    java.awt.Color awtColor = new java.awt.Color( (int) (currentColor.getRed() *255),(int)(currentColor.getGreen() *255),(int)(currentColor.getBlue() *255));
+                    java.awt.Color awtColor = new java.awt.Color( (int) (currentColor.getRed() * 255),(int)(currentColor.getGreen() * 255),(int)(currentColor.getBlue() * 255));
                     graphics.setPaint(awtColor);
                     graphics.fillOval((int)x,(int)y,image.getWidth()/100,image.getHeight()/100);
                     returnImageView.setImage(SwingFXUtils.toFXImage(image,null));
