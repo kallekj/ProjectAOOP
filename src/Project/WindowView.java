@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 
 
 public  class WindowView extends Stage{
-    //private Stage window;
     private final int SCENE_WIDTH = 700, SCENE_HEIGHT = 700;
     private Scene mainScene;
     private ImageView theImageView;
@@ -25,7 +24,10 @@ public  class WindowView extends Stage{
     private VBox pane;
     private WindowModel theModel;
 
-
+    /**
+     *
+     * @param primaryStage
+     */
     public WindowView(Stage primaryStage){
         setTitle("Photo Modifier");
         setResizable(false);

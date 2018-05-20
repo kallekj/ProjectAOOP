@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 import java.awt.image.BufferedImage;
 
 public class InvertFilter extends ImageModifier {
-    Image originalImage = null;
+   private Image originalImage ;
     /**
      *
      * @param input The ImageView to get its colors inverted

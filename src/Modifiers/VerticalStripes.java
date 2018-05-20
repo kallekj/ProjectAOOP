@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import java.awt.*;
 
 public class VerticalStripes extends ImageModifier {
-    Image originalImage = null;
+   private Image originalImage ;
     /**
      *
      * @param input The ImageView containing an image to get black vertical stripes added ontop

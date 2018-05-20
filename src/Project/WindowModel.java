@@ -97,7 +97,6 @@ public class WindowModel  {
         if(cacheStack.size() >0 ) {
             changeStack.push(cacheStack.pop());
             theImageViewer.setImage(changeStack.peek().getImage());
-            //setCurrentModifier(changeStack.peek().getModifier());
         }
     }
 }
