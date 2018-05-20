@@ -48,14 +48,10 @@ public class Swirl extends ImageModifier {
                         int tempY = (int) (deltaX * Math.sin(angle) + deltaY * Math.cos(angle) + y0);
                         if (tempX >= 0 && tempX < bufferedImage.getWidth() && tempY >= 0 && tempY < bufferedImage.getHeight()) {
                             tempBufferedImage.setRGB(x, y, bufferedImage.getRGB(tempX, tempY));
-
-
                         }
 
                     }
                 }
-
-
                 Image newImage = SwingFXUtils.toFXImage(tempBufferedImage,null);
                 resultView.setImage(newImage);
 

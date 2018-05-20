@@ -21,9 +21,15 @@ public class RedFilter extends ImageModifier {
     public ImageView activate(ImageView input) {
         ImageView returnImageView = input;
         originalImage = returnImageView.getImage();
-        Blend noBlue = new Blend(BlendMode.BLUE,returnImageView.getEffect(), new ColorInput(0,0,returnImageView.getImage().getWidth(),  returnImageView.getImage().getHeight(), Color.rgb( 0 , 0,0 )));
+        Blend noBlue = new Blend(BlendMode.BLUE,returnImageView.getEffect(),
+                new ColorInput(0,0,returnImageView.getImage().getWidth(),
+                        returnImageView.getImage().getHeight(), Color.rgb( 0 , 0,0 )));
+
         returnImageView.setEffect(noBlue);
-        Blend noGreen = new Blend(BlendMode.GREEN, returnImageView.getEffect(), new ColorInput(0,0,returnImageView.getImage().getWidth(),  returnImageView.getImage().getHeight(), Color.rgb( 0 , 0,0 )));
+        Blend noGreen = new Blend(BlendMode.GREEN, returnImageView.getEffect(),
+                new ColorInput(0,0,returnImageView.getImage().getWidth(),
+                        returnImageView.getImage().getHeight(), Color.rgb( 0 , 0,0 )));
+
         returnImageView.setEffect(noGreen);
         returnImageView.setImage(returnImageView.snapshot(new SnapshotParameters(),null));
         returnImageView.setEffect(null);
