@@ -12,6 +12,7 @@ public class InvertFilter extends ImageModifier {
      *
      * @param input The ImageView to get its colors inverted
      * @return ImageView with inverted colors
+     *  @precondition ImageView not null
      */
     @Override
     public ImageView activate(ImageView input) {
@@ -40,6 +41,8 @@ public class InvertFilter extends ImageModifier {
      *
      * @param input The ImageView to be mirrored
      * @return ImageView with normal colors
+     * @precondition  activate has been used
+     * @postcondition Modifier no longer active
      */
     @Override
     public ImageView deactivate(ImageView input) {

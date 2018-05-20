@@ -1,6 +1,6 @@
 This application lets you modify an image with different modifiers:
-Black Circle: This draws a black circle over the image stretching to the edges
-Brightness Filter: This lets you modify the brightness of the image, a slider will open so you can increase/decrease the intensity
-Chess: Draws a chessboard over the image
-FlipX: Mirrors the image
-Grayscale: Makes the image grayscaled
+How to use:
+1. Open the "File" menu and open an image on your device with "Open" or create a new with the "New Image" option
+2. Open the "Modify" menu and select a modifier, some will create a new window with either a ColorSelector or a Slider
+3. Undo your changes by either removing all modifiers with the "No Modifier" option or go back step by step by pressing "CTRL+Z" on your keyboard. You can also use "CTRL+Y" to redo.
+4. Select "Save" in the "File" menu to browse directories to save your modified image.

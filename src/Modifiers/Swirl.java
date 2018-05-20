@@ -21,6 +21,7 @@ public class Swirl extends ImageModifier {
      *
      * @param input The ImageView containing a image to be swirled
      * @return ImageView with its image swirled
+     *  @precondition ImageView not null
      */
     @Override
     public ImageView activate(ImageView input) {
@@ -47,19 +48,16 @@ public class Swirl extends ImageModifier {
                         int tempY = (int) (deltaX * Math.sin(angle) + deltaY * Math.cos(angle) + y0);
                         if (tempX >= 0 && tempX < bufferedImage.getWidth() && tempY >= 0 && tempY < bufferedImage.getHeight()) {
                             tempBufferedImage.setRGB(x, y, bufferedImage.getRGB(tempX, tempY));
-
                         }
 
                     }
                 }
-
-
                 Image newImage = SwingFXUtils.toFXImage(tempBufferedImage,null);
                 resultView.setImage(newImage);
 
+
             }
         });
-
 
         return resultView;
 }
@@ -67,6 +65,8 @@ public class Swirl extends ImageModifier {
      *
      * @param input The ImageView containing an image to be reset
      * @return ImageView with its image reset
+     * @precondition  activate has been used
+     * @postcondition Modifier no longer active
      */
     @Override
     public ImageView deactivate(ImageView input) {

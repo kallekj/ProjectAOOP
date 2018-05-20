@@ -7,12 +7,13 @@ import javafx.scene.image.ImageView;
 
 import java.awt.*;
 
-public class Vertical_Stripes extends ImageModifier {
+public class VerticalStripes extends ImageModifier {
     Image originalImage = null;
     /**
      *
      * @param input The ImageView containing an image to get black vertical stripes added ontop
      * @return ImageView with black vertical stripes on top of its image
+     *  @precondition ImageView not null
      */
     @Override
     public ImageView activate(ImageView input) {
@@ -35,6 +36,8 @@ public class Vertical_Stripes extends ImageModifier {
      *
      * @param input The ImageView with black vertical stripes on its image
      * @return ImageView with its image back to normal
+     * @precondition  activate has been used
+     * @postcondition Modifier no longer active
      */
 
     @Override

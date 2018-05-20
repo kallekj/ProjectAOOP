@@ -1,35 +1,39 @@
 package Modifiers;
 
 import Project.ImageModifier;
-import javafx.scene.image.ImageView;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.image.*;
+import javafx.scene.paint.Color;
 
 public class FlipX extends ImageModifier {
-
+    private Image originalImage;
     /**
      *
      * @param input The ImageView to be mirrored
      * @return Mirrored ImageView
+     * @precondition ImageView not null
+     *
      */
     @Override
     public ImageView activate(ImageView input) {
-
+        originalImage = input.getImage();
         ImageView returnImageView = input;
-        if(input.getScaleX() == -1){
-           returnImageView.setScaleX(1);
-        }
-        else{
-            returnImageView.setScaleX(-1);
-        }
+        returnImageView.setScaleX(-1);
+        WritableImage flippedImage = returnImageView.snapshot(new SnapshotParameters(),null);
+        returnImageView.setScaleX(1);
+        returnImageView.setImage(flippedImage);
         return returnImageView;
     }
     /**
      *
      * @param input The ImageView to be reset to normal
      * @return Reset ImageView
+     * @precondition  activate has been used
+     * @postcondition Modifier no longer active
      */
     @Override
     public ImageView deactivate(ImageView input) {
-        input.setScaleX(1);
+        input.setImage(originalImage);
         return input;
     }
 
