@@ -30,7 +30,7 @@ public class ImageCreatorBox {
      */
     public static void display() {
 
-         imageSetEntry = new Stage();
+        imageSetEntry = new Stage();
         imageSetEntry.initModality(Modality.APPLICATION_MODAL);
         imageSetEntry.setHeight(500);
         imageSetEntry.setWidth(600);
@@ -40,10 +40,6 @@ public class ImageCreatorBox {
         VBox EntryLayout = new VBox(30);
         Text newImgHeightLabel = new Text("New Image Height");
         TextField newImgHeight = new TextField();
-
-
-
-
 
         Text newImgWidthLabel = new Text("New Image Width");
         TextField newImgWidth = new TextField();
