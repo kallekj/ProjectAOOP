@@ -27,7 +27,7 @@ import static javafx.scene.control.ColorPicker.STYLE_CLASS_SPLIT_BUTTON;
 
 
 public class Paint extends ImageModifier {
-    private Image originalImage = null;
+    private Image originalImage;
     private Color currentColor;
     private Stage colorWindow;
 

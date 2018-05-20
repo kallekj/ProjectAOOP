@@ -23,8 +23,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WindowController extends MenuBar {
-
-
+    /**
+     *
+     * @param primaryStage The Viewer for the Controller to control
+     */
+  
     public WindowController(WindowView primaryStage){
 
         WindowModel projectModel = primaryStage.getTheModel();

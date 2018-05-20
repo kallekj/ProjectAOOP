@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import java.awt.*;
 
 public class BlackCircle extends ImageModifier {
-    Image originalImage = null;
+   private Image originalImage ;
 
     /**
      * @return ImageView with black circle painted on image, edge to edge

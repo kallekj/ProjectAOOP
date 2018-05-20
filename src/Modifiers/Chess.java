@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import java.awt.*;
 
 public class Chess extends ImageModifier {
-    Image originalImage = null;
+    private Image originalImage;
     /**
      * @param input , the ImageView containing the image to be added a back chess board
      * @return ImageView with black chessboard painted on image
