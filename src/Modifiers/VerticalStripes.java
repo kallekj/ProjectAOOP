@@ -2,19 +2,21 @@ package Modifiers;
 
 import Project.ImageModifier;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 
 import java.awt.*;
 
 public class VerticalStripes extends ImageModifier {
-   private Image originalImage ;
+    private Image originalImage ;
     /**
      *
      * @param input The ImageView containing an image to get black vertical stripes added ontop
      * @return ImageView with black vertical stripes on top of its image
      *  @precondition ImageView not null
      */
+
     @Override
     public ImageView activate(ImageView input) {
         originalImage = input.getImage();
@@ -32,6 +34,8 @@ public class VerticalStripes extends ImageModifier {
 
         return returnImageView;
     }
+
+
     /**
      *
      * @param input The ImageView with black vertical stripes on its image

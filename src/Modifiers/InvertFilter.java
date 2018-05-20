@@ -2,8 +2,9 @@ package Modifiers;
 
 import Project.ImageModifier;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
+import javafx.scene.paint.Color;
+
 import java.awt.image.BufferedImage;
 
 public class InvertFilter extends ImageModifier {
@@ -18,7 +19,16 @@ public class InvertFilter extends ImageModifier {
     public ImageView activate(ImageView input) {
         originalImage = input.getImage();
         ImageView returnImageView = input;
-        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(input.getImage(),null);
+        WritableImage newImage = new WritableImage((int)input.getImage().getWidth(),(int)input.getImage().getHeight());
+        PixelReader reader = input.getImage().getPixelReader();
+        PixelWriter writer = newImage.getPixelWriter();
+        for(int x = 0; x < newImage.getWidth(); x++){
+            for(int y = 0; y < newImage.getHeight(); y++){
+                Color currentColor = reader.getColor(x,y);
+                writer.setColor(x,y,currentColor.invert());
+            }
+        }
+      /*  BufferedImage bufferedImage = SwingFXUtils.fromFXImage(input.getImage(),null);
         BufferedImage invertedImage = new BufferedImage((int)input.getImage().getWidth(),(int)input.getImage().getHeight(),BufferedImage.TYPE_INT_RGB);
         // For every pixel in the image, get the rgb values, then mask out each separate color and shift it
         for(int x = 0; x < bufferedImage.getWidth(); x++){
@@ -34,7 +44,7 @@ public class InvertFilter extends ImageModifier {
                 invertedImage.setRGB(x,y,newPixel);
             }
         }
-        Image newImage = SwingFXUtils.toFXImage(invertedImage,null);
+        Image newImage = SwingFXUtils.toFXImage(invertedImage,null);*/
         returnImageView.setImage(newImage);
         return returnImageView;
     }

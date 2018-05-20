@@ -6,10 +6,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
+import java.io.PipedWriter;
 
 public class Swirl extends ImageModifier {
     private Image originalImage;
@@ -48,9 +49,11 @@ public class Swirl extends ImageModifier {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 intensity = newValue.doubleValue() ;
-                BufferedImage bufferedImage = SwingFXUtils.fromFXImage(returnImage,null);
-                BufferedImage tempBufferedImage = new BufferedImage(bufferedImage.getWidth(),bufferedImage.getHeight(),BufferedImage.TYPE_INT_ARGB);
-                for(int x = 0; x<bufferedImage.getWidth();x++) {
+                WritableImage bufferedImage = new WritableImage(originalImage.getPixelReader(), (int)originalImage.getWidth(), (int)originalImage.getHeight());
+                WritableImage tempBufferedImage = new WritableImage((int)bufferedImage.getWidth(),(int)bufferedImage.getHeight());
+                PixelReader reader = bufferedImage.getPixelReader();
+                PixelWriter writer = tempBufferedImage.getPixelWriter();
+                for(int x = 0; x < bufferedImage.getWidth(); x++) {
                     for (int y = 0; y < bufferedImage.getHeight(); y++) {
                         double deltaX = x - x0;
                         double deltaY = y - y0;
@@ -59,14 +62,11 @@ public class Swirl extends ImageModifier {
                         int tempX = (int) (deltaX * Math.cos(angle) - deltaY * Math.sin(angle) + x0);
                         int tempY = (int) (deltaX * Math.sin(angle) + deltaY * Math.cos(angle) + y0);
                         if (tempX >= 0 && tempX < bufferedImage.getWidth() && tempY >= 0 && tempY < bufferedImage.getHeight()) {
-                            tempBufferedImage.setRGB(x, y, bufferedImage.getRGB(tempX, tempY));
+                            writer.setColor(x, y, reader.getColor(tempX, tempY));
                         }
                     }
                 }
-                Image newImage = SwingFXUtils.toFXImage(tempBufferedImage,null);
-                resultView.setImage(newImage);
-
-
+                resultView.setImage(tempBufferedImage);
             }
         });
 
