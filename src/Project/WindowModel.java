@@ -35,6 +35,13 @@ public class WindowModel  {
 
 
     public void updateImageView(File inputFile){
+        if(changeStack != null){
+            if(changeStack.size()>1){
+                removeAllModifiers();
+            }
+        }
+
+
         changeStack = new Stack<ModifiedImage>();
         cacheStack = new Stack<ModifiedImage>();
         cacheStack.clear();
@@ -63,6 +70,7 @@ public class WindowModel  {
             ModifiedImage newMImage = new ModifiedImage(changeStack.peek().getImage(), modifier) ;
             theImageViewer= newMImage.getModifier().activate(theImageViewer);
             changeStack.push(newMImage);
+
         }
     }
     /**
@@ -83,7 +91,7 @@ public class WindowModel  {
 
     public void removeAllModifiers() {
         while(changeStack.peek().getModifier() != null){
-            changeStack.pop();
+           removeModifier();
         }
         theImageViewer.setImage(changeStack.peek().getImage());
         theImageViewer.setEffect(null);

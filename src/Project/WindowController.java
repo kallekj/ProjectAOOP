@@ -59,7 +59,7 @@ public class WindowController extends MenuBar {
                     fileSaver.setTitle("Save New Image");
                     File newFile = fileSaver.showSaveDialog(primaryStage);
                     if(newFile != null){
-                        try{ ImageIO.write(saveImage,"png",new File( newFile.toString() + ".png"));
+                        try{ ImageIO.write(saveImage,"png",new File( newFile.toString() ));
                             projectModel.updateImageView(newFile);
 
                         }

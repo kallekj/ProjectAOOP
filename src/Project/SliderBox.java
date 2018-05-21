@@ -63,6 +63,8 @@ public class SliderBox  {
         layout.getChildren().addAll(newTextField, slider);
 
     }
-
+public void close(){
+        window.close();
+}
 
 }
