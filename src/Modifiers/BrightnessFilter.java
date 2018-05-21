@@ -5,9 +5,13 @@ import Project.SliderBox;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.WindowEvent;
 
 
 import java.awt.image.BufferedImage;
@@ -19,6 +23,7 @@ public class BrightnessFilter extends ImageModifier {
     private Image returnImage;
     private float intensity;
     private Slider theSlider;
+    private SliderBox theBox;
 
     /**
      * @return ImageView with image colors brightened by the intensity selected in the slider
@@ -27,6 +32,7 @@ public class BrightnessFilter extends ImageModifier {
      */
     @Override
     public ImageView activate(ImageView input) {
+
         originalImage = input.getImage();
         returnImage = input.getImage();
         ImageView resultView = input;
@@ -55,6 +61,7 @@ public class BrightnessFilter extends ImageModifier {
      */
     @Override
     public ImageView deactivate(ImageView input) {
+        theBox.close();
         input.setImage(originalImage);
         return input;
     }
@@ -67,8 +74,9 @@ public class BrightnessFilter extends ImageModifier {
         theSlider.setMinorTickCount(5);
         theSlider.setPrefWidth(300);
         intensity = 0;
+        theBox = new SliderBox();
 
-        SliderBox.display("Intensity",theSlider);
+        theBox.display("Intensity",theSlider);
     }
 }
 

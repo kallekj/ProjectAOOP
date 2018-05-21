@@ -17,6 +17,7 @@ public class Swirl extends ImageModifier {
     private Image returnImage;
     private Double intensity;
     private Slider theSlider;
+    private SliderBox theBox;
     /**
      *
      * @param input The ImageView containing a image to be swirled
@@ -81,11 +82,13 @@ public class Swirl extends ImageModifier {
      */
     @Override
     public ImageView deactivate(ImageView input) {
+        theBox.close();
         input.setImage(originalImage);
         return input;
     }
 
     private void initSlider(){
+        theBox = new SliderBox();
         theSlider = new Slider(0,10,0);
         theSlider.setShowTickLabels(true);
         theSlider.setShowTickMarks(true);
@@ -94,7 +97,7 @@ public class Swirl extends ImageModifier {
         theSlider.setPrefWidth(300);
         intensity = 0.0;
 
-        SliderBox.display("Intensity",theSlider);
+        theBox.display("Intensity",theSlider);
     }
 
 }

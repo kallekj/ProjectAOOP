@@ -3,7 +3,9 @@ package Modifiers;
 import Project.ImageModifier;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
@@ -16,12 +18,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 
-
+import static javafx.event.ActionEvent.ANY;
 import static javafx.scene.control.ColorPicker.STYLE_CLASS_SPLIT_BUTTON;
 
 
@@ -29,7 +34,6 @@ public class Paint extends ImageModifier {
     private Image originalImage;
     private Color currentColor;
     private Stage colorWindow;
-
     /**
      *
      * @param input The ImageView used as a Canvas
@@ -76,7 +80,11 @@ public class Paint extends ImageModifier {
 
             }
         });
-        Scene scene = new Scene(colorBox);
+        colorWindow.setOnCloseRequest(event -> {
+        returnImageView.setOnMouseDragged(null);
+        colorWindow.close();
+        });
+                Scene scene = new Scene(colorBox);
         colorWindow.initModality(Modality.WINDOW_MODAL);
         colorWindow.setScene(scene);
         colorWindow.show();
@@ -91,6 +99,7 @@ public class Paint extends ImageModifier {
      */
     @Override
     public ImageView deactivate(ImageView input) {
+        colorWindow.fireEvent(new WindowEvent(colorWindow,WindowEvent.WINDOW_CLOSE_REQUEST));
         input.setOnMouseDragged(null);
         input.setImage(originalImage);
         return input;
